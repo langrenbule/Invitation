@@ -1,8 +1,10 @@
 package com.consonance.invitation;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,14 +16,18 @@ import android.view.MenuItem;
 import com.consonance.invitation.adapter.OrderAdapter;
 import com.consonance.invitation.test.MonitorData;
 
+import java.util.Arrays;
+
 import butterknife.BindArray;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener{
 //    @BindView(R.id.order_list)
+    private static final int REFRESH_COMPLETE = 0X110;
     public RecyclerView mRecyclerView;
     private OrderAdapter mAdapter;
+    private SwipeRefreshLayout mSwipeLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +50,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void initRecyclerView(){
+        mSwipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_lv);
+        mSwipeLayout.setOnRefreshListener(this);
+        mSwipeLayout.setColorScheme(android.R.color.holo_blue_bright, android.R.color.holo_green_light,
+                android.R.color.holo_orange_light, android.R.color.holo_red_light);
         mAdapter = new OrderAdapter(MainActivity.this);
         mAdapter.setData(MonitorData.getOrderEntityList());
         /**线性布局*/
@@ -72,5 +82,25 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private Handler mHandler = new Handler()
+    {
+        public void handleMessage(android.os.Message msg)
+        {
+            switch (msg.what){
+                case REFRESH_COMPLETE:
+                    mAdapter.notifyDataSetChanged();
+                    mSwipeLayout.setRefreshing(false);
+                    break;
+            }
+        };
+    };
+
+    @Override
+    public void onRefresh() {
+        //请求网络,这边我模拟耗时
+        mHandler.sendEmptyMessageDelayed(REFRESH_COMPLETE, 2000);
+
     }
 }
