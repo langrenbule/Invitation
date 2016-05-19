@@ -57,12 +57,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView i_user_display;
-        private Button i_user_nickName;
+        private TextView i_user_nickName;
 
         public ViewHolder(View view){
             super(view);
             i_user_display = (ImageView) view.findViewById(R.id.i_user_display);
-            i_user_nickName = (Button) view.findViewById(R.id.i_user_nickName);
+            i_user_nickName = (TextView) view.findViewById(R.id.i_user_nickName);
         }
     }
 }

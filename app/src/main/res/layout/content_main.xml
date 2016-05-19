@@ -15,9 +15,11 @@
         android:id="@+id/swipe_lv"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <!-- ListView下拉数据时上下边有黑色阴影 给ListView加上Android:fadingEdge="none" -->
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/order_list"
                 android:layout_width="match_parent"
+                android:fadingEdge="none"
                 android:layout_height="match_parent"
                 android:divider="@color/colorGray"
                 android:dividerHeight="1dp">
