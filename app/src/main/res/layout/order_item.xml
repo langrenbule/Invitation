@@ -2,35 +2,87 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <android.support.v7.widget.CardView
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:stateListAnimator="@anim/translationz"
         android:foreground="?attr/selectableItemBackground"
         android:layout_margin="3dp"
         card_view:cardElevation="3dp"
         card_view:cardCornerRadius="5dp">
-        <RelativeLayout
+
+        <!--用户介绍-->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="horizontal">
+            <!--用户图片,最后有边框-->
             <ImageView
                 android:id="@+id/i_user_display"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_margin="5dp"
                 android:scaleType="fitXY"
-                android:background="@drawable/i_normal_bg"/>
-            <Button
-                android:id="@+id/i_user_nickName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:background="@android:color/transparent"
-                android:text="产品经理"/>
-        </RelativeLayout>
+                android:src="@drawable/i_normal_bg"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="vertical" >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:layout_height="0dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/i_user_nickName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:gravity="top"
+                        android:text="${name}"/>
+                    <TextView
+                        android:id="@+id/user_sex"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:text="${sex}"/>
+                    <TextView
+                        android:id="@+id/user_des"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="3"
+                        android:gravity="top"
+                        android:text="新华社13日电日本内阁官房网站和外务省网站4月15日公布“史料”，企图以此证明钓鱼岛是“日本固有领土”。对此，清华大学国际关系研究院教授刘江永近日在接受新华社记者专访时表示，仔细研究可以发现，相关史料恰恰证明，钓鱼岛从来就不属于日本。"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical" >
+                    <TextView
+                        android:id="@+id/id_date"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|right"
+                        android:paddingTop="8dp"
+                        android:singleLine="true"
+                        android:text="13分钟前|11次评论"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </LinearLayout>
 
     </android.support.v7.widget.CardView>
 
