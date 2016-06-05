@@ -5,4 +5,6 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="colorGray">#BFBFBF</color>
+    <color name="tabClick">#22000000</color>
+    <color name="item_pressed">#7F59AB</color>
 </resources>
