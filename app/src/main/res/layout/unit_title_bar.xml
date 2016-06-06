@@ -2,10 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="50dp">
 
     <RelativeLayout
         android:id="@+id/top_title_bar"
+        android:background="#00A4DF"
         android:layout_width="match_parent"
         android:layout_height="50dp">
 
@@ -15,6 +16,7 @@
             android:layout_height="40dp"
             android:layout_alignParentLeft="true"
             android:padding="10dp"
+            android:src="@drawable/actionbar_back_btn"
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp" />
 
@@ -24,6 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:textColor="@android:color/black"
+            android:text="@string/app_name"
             android:textSize="20sp" />
 
         <ImageView
@@ -33,6 +36,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:padding="10dp"
+            android:src="@drawable/actionbar_ok_btn"
             android:layout_marginRight="13dp" />
     </RelativeLayout>
 
