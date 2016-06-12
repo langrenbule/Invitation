@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">宝贝租</string>
     <string name="action_settings">Settings</string>
+    <string name="btn_order">发布</string>
+
+    <string name="image">image</string>
+    <string name="yuan">元</string>
+    <string name="inviteMainActivity_item1">订单:</string>
+    <string name="inviteMainActivity_item2">愿付酬金:</string>
+    <string name="inviteMainActivity_item3">邀约时间:</string>
+    <string name="inviteMainActivity_item4">邀约地点:</string>
+    <string name="inviteMainActivity_item5">创建时间:</string>
 </resources>

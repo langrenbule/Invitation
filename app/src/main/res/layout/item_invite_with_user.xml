@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_userList"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/activity_background"
+    android:paddingLeft="10.0dip"
+    android:paddingRight="10.0dip"
+    android:paddingTop="10.0dip">
+
+    <LinearLayout
+        android:id="@+id/layout_state"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:paddingBottom="5.0dip">
+
+        <TextView
+            android:id="@+id/tv_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5.0dip"
+            android:textColor="@color/color_main"
+            android:textSize="@dimen/myBidList_textSize" />
+
+        <ImageView
+            android:id="@+id/image_news"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5.0dip"
+            android:contentDescription="@string/image"
+            android:src="@drawable/redpoint"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_center"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_state"
+        android:background="@color/white"
+        android:paddingBottom="10.0dip"
+        android:paddingLeft="10.0dip">
+
+        <RelativeLayout
+            android:id="@+id/layout_head"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5.0dip"
+            android:layout_marginTop="10.0dip">
+
+            <LinearLayout
+                android:id="@+id/l_head"
+                android:layout_width="59.0dip"
+                android:layout_height="55.0dip"
+                android:gravity="left">
+
+                <ImageView
+                    android:id="@+id/iv_head"
+                    android:layout_width="55.0dip"
+                    android:layout_height="55.0dip"
+                    android:contentDescription="@string/image"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_favorite_grey600_24dp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_level"
+                android:layout_width="20.0dip"
+                android:layout_height="15.0dip"
+                android:layout_alignRight="@+id/l_head"
+                android:layout_alignTop="@+id/l_head"
+                android:layout_marginTop="3.0dip"
+                android:background="@drawable/v1"
+                android:gravity="center_horizontal"
+                android:textColor="@color/white"
+                android:textSize="@dimen/size_8" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_invite"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10.0dip"
+            android:layout_marginTop="10.0dip"
+            android:layout_toRightOf="@+id/layout_head"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_skill0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:textColor="@color/bg_gender"
+                    android:textSize="15.0dip" />
+
+                <TextView
+                    android:id="@+id/tv_skill"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3.0dip"
+                    android:layout_toRightOf="@+id/tv_skill0"
+                    android:textColor="@color/black"
+                    android:textSize="15.0dip" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="bottom"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/inviteMainActivity_item2"
+                    android:textColor="@color/bg_gender"
+                    android:textSize="15.0dip" />
+
+                <TextView
+                    android:id="@+id/tv_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="2.0dip"
+                    android:paddingRight="1.0dip"
+                    android:textColor="@color/color_main"
+                    android:textSize="20.0dip" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/yuan"
+                    android:textColor="@color/bg_gender"
+                    android:textSize="15.0dip" />
+
+                <ImageView
+                    android:id="@+id/iv_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="15.0dip"
+                    android:layout_marginBottom="3.0dip"
+                    android:layout_marginLeft="3.0dip"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_post_price"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tv_price_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/bg_gender"
+                    android:textSize="13.0dip" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3.0dip"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/inviteMainActivity_item3"
+                    android:textColor="@color/bg_gender"
+                    android:textSize="15.0dip" />
+
+                <TextView
+                    android:id="@+id/tv_time"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3.0dip"
+                    android:textColor="@color/black"
+                    android:textSize="15.0dip" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3.0dip"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/inviteMainActivity_item4"
+                    android:textColor="@color/bg_gender"
+                    android:textSize="15.0dip" />
+
+                <TextView
+                    android:id="@+id/tv_place"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3.0dip"
+                    android:layout_marginRight="50.0dip"
+                    android:textColor="@color/black"
+                    android:textSize="15.0dip" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5.0dip"
+                android:layout_marginTop="5.0dip"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="13.0dip" />
+
+                <TextView
+                    android:id="@+id/tv_levelpass"
+                    style="@style/Text_item_user_content" />
+
+                <LinearLayout
+                    android:id="@+id/layout_gender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5.0dip"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_age"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="3.0dip"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/item_user_age" />
+
+                    <ImageView
+                        android:id="@+id/iv_gender"
+                        android:layout_width="10.0dip"
+                        android:layout_height="10.0dip"
+                        android:scaleType="fitCenter" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5.0dip"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="12.0dip"
+                        android:layout_height="16.0dip"
+                        android:layout_marginRight="3.0dip"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/sign_loc" />
+
+                    <TextView
+                        android:id="@+id/tv_distance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/bg_gender"
+                        android:textSize="13.0dip" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view_line"
+            android:layout_width="fill_parent"
+            android:layout_height="0.5dip"
+            android:layout_below="@+id/layout_invite"
+            android:layout_marginRight="10.0dip"
+            android:layout_marginTop="10.0dip"
+            android:background="@color/grayL"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/layout_btn"
+            android:layout_width="fill_parent"
+            android:layout_height="50.0dip"
+            android:layout_below="@+id/view_line"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingTop="10.0dip"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tv_btn1"
+                android:layout_width="80.0dip"
+                android:layout_height="fill_parent"
+                android:layout_marginRight="10.0dip"
+                android:layout_weight="1.0"
+                android:background="@drawable/bg_item_all_selector"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="14.0dip" />
+
+            <TextView
+                android:id="@+id/tv_btn2"
+                android:layout_width="80.0dip"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="10.0dip"
+                android:layout_marginRight="10.0dip"
+                android:layout_weight="1.0"
+                android:background="@drawable/bg_item_all_selector"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="14.0dip" />
+
+            <TextView
+                android:id="@+id/tv_btn3"
+                android:layout_width="80.0dip"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="10.0dip"
+                android:layout_weight="1.0"
+                android:background="@drawable/bg_item_all_selector"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="14.0dip" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_role"
+            android:layout_width="50.0dip"
+            android:layout_height="50.0dip"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_sign_invite" />
+
+        <ImageView
+            android:id="@+id/iv_chat"
+            android:layout_width="45.0dip"
+            android:layout_height="55.0dip"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10.0dip"
+            android:paddingLeft="3.0dip"
+            android:paddingTop="3.0dip"
+            android:src="@drawable/ic_chat_invite"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_createTime0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/layout_center"
+        android:paddingTop="5.0dip"
+        android:singleLine="true"
+        android:text="@string/inviteMainActivity_item5"
+        android:textColor="@color/bg_gender"
+        android:textSize="12.0dip" />
+
+    <TextView
+        android:id="@+id/tv_createTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_center"
+        android:layout_marginLeft="3.0dip"
+        android:layout_toRightOf="@+id/tv_createTime0"
+        android:paddingTop="5.0dip"
+        android:singleLine="true"
+        android:textColor="@color/bg_gender"
+        android:textSize="12.0dip" />
+</RelativeLayout>

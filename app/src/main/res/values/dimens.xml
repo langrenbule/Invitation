@@ -5,4 +5,8 @@
     <dimen name="fab_margin">16dp</dimen>
 
     <dimen name="touch_raise">5dp</dimen>
+    <dimen name="myBidList_textSize">16.0dip</dimen>
+    <dimen name="size_8">8.0dip</dimen>
+    <dimen name="item_user_content">11.0dip</dimen>
+    <dimen name="item_user_age">11.0dip</dimen>
 </resources>

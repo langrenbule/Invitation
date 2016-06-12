@@ -4,18 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.consonance.invitation.MainActivity"
     tools:showIn="@layout/activity_main">
+    <!--
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_lv"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <!-- ListView下拉数据时上下边有黑色阴影 给ListView加上Android:fadingEdge="none" -->
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/order_list"
                 android:layout_width="match_parent"
@@ -26,6 +22,7 @@
 
             </android.support.v7.widget.RecyclerView>
     </android.support.v4.widget.SwipeRefreshLayout>
+    -->
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"

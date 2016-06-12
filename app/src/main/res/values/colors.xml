@@ -4,6 +4,17 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+
+    <color name="transparentblue">#445CACEE</color>
+    <!--item_invite_with_user-->
+    <color name="activity_background">#ffe3e3e3</color>
+    <color name="color_main">#ffff4e00</color>
+    <color name="white">#ffffffff</color>
+    <color name="bg_gender">#ff8d8d8d</color>
+    <color name="black_deep">#ff000000</color>
+    <color name="black">#ff000000</color>
+    <color name="grayL">#ffd6d6d6</color>
+
     <color name="colorGray">#BFBFBF</color>
     <color name="tabClick">#22000000</color>
     <color name="item_pressed">#7F59AB</color>
