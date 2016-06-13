@@ -9,18 +9,21 @@ import java.util.List;
  * Created by Deity on 2016/5/10.
  */
 public class MonitorData {
-    public static final String display_url_1="http://g.hiphotos.baidu.com/image/h%3D200/sign=875ef8ffb63533faeab6942e98d2fdca/0eb30f2442a7d93356139582aa4bd11372f00183.jpg";
-    public final String display_url_2="http://img2.imgtn.bdimg.com/it/u=2143948337,3970654076&fm=21&gp=0.jpg";
-    public final String display_url_3="http://e.hiphotos.baidu.com/zhidao/wh%3D450%2C600/sign=e613f6f04e90f60304e594430c229f2d/7e3e6709c93d70cf5756d0ccfcdcd100bba12b46.jpg";
-    public final String display_url_4="http://img2.imgtn.bdimg.com/it/u=4223356602,671645851&fm=21&gp=0.jpg";
-    public final String display_url_5="http://img4.imgtn.bdimg.com/it/u=2759668553,3123152347&fm=21&gp=0.jpg";
-    public final String display_url_6="http://pic.6188.com/upload_6188s/flashAll/s800/20120628/1340846176MSWTQ3.jpg";
+    public static final String[] display_url=new String[]{
+            "http://a.hiphotos.baidu.com/zhidao/pic/item/024f78f0f736afc33199a401b119ebc4b7451238.jpg",
+            "http://c.hiphotos.baidu.com/zhidao/pic/item/a6efce1b9d16fdfa95c7a1cab78f8c5494ee7b6e.jpg",
+            "https://s-media-cache-ak0.pinimg.com/236x/87/8a/ae/878aaeca3226240fe7991b7dbc46c5da.jpg",
+            "https://s-media-cache-ak0.pinimg.com/236x/2e/7d/31/2e7d312d24158afd9cf770f70c489c1c.jpg",
+            "https://s-media-cache-ak0.pinimg.com/236x/9d/b3/6c/9db36cd350564cc3bf09b863120682b6.jpg",
+            "https://s-media-cache-ak0.pinimg.com/236x/26/99/4c/26994c145b73f09ecdb759abc15ded99.jpg",
+            "https://s-media-cache-ak0.pinimg.com/236x/93/c9/61/93c961df564c1cfdaa8cda221d37a426.jpg"
+    };
 
     public static List<OrderEntity> getOrderEntityList(){
         List<OrderEntity> list = new ArrayList<>();
         for (int i=0;i<6;i++){
             OrderEntity entity = new OrderEntity();
-            entity.setUser_display(display_url_1);
+            entity.setUser_display(display_url[i]);
             entity.setUser_nickName("天神Deity");
             list.add(entity);
         }

@@ -10,18 +10,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.consonance.invitation.R;
 import com.consonance.invitation.adapter.OrderAdapter;
 import com.consonance.invitation.test.MonitorData;
+import com.consonance.invitation.widget.EndlessRecyclerOnScrollListener;
 
 /**
  * Created by Deity on 2016/6/12.
- *  解决fragment+viewpager第二次进入的时候没有数据的问题
- * http://blog.csdn.net/zmldlut/article/details/17689011
- * https://www.zhihu.com/question/27313300
- *
- * 解决http://my.oschina.net/buobao/blog/610496
+ * recycleview的使用
+ * https://www.easydone.cn/2015/10/26/
  */
 public class SquareWomenFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     public static final String TAG = SquareWomenFragment.class.getSimpleName();
@@ -55,10 +54,28 @@ public class SquareWomenFragment extends Fragment implements SwipeRefreshLayout.
         mRecyclerView = (RecyclerView) view.findViewById(R.id.order_list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener(new LinearLayoutManager(getActivity())) {
+            @Override
+            public void onLoadMore(int currentPage) {
+                loadMoreData();
+            }
+        });
     }
 
     @Override
     public void onRefresh() {
-
+        mSwipeLayout.setRefreshing(false);
+        mAdapter.addData(MonitorData.getOrderEntityList());
+        mAdapter.notifyDataSetChanged();
+        Toast.makeText(getActivity(), "Refresh Finished!", Toast.LENGTH_SHORT).show();
     }
+
+    private void loadMoreData() {
+        mSwipeLayout.setRefreshing(false);
+        mAdapter.addData(MonitorData.getOrderEntityList());
+        mAdapter.notifyDataSetChanged();
+        Toast.makeText(getActivity(), "loadMoreData Finished!", Toast.LENGTH_SHORT).show();
+    }
+
+
 }
