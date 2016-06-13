@@ -16,6 +16,9 @@ import java.util.Arrays;
 
 /**
  * 广场
+ * android viewpager切换无法显示fragment问题
+ * http://my.oschina.net/buobao/blog/610496
+ * 问题是这里需要调用getChildFragmentManager,而不是getFragmentManager
  * Created by Deity on 2016/6/12.
  */
 public class SquareFragment extends Fragment {
@@ -33,7 +36,7 @@ public class SquareFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_square,container,false);
         mIndicator = (TabPageIndicator) view.findViewById(R.id.indicator);
         mContentPage = (ViewPager) view.findViewById(R.id.pager);
-        SquareTypeAdapter typeAdapter = new SquareTypeAdapter(getActivity().getSupportFragmentManager());
+        SquareTypeAdapter typeAdapter = new SquareTypeAdapter(getChildFragmentManager());
         typeAdapter.setData(Arrays.asList(mFragments));
         mContentPage.setAdapter(typeAdapter);
         mIndicator.setViewPager(mContentPage);
