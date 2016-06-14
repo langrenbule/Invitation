@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.consonance.invitation.R;
-import com.consonance.invitation.adapter.OrderAdapter;
+import com.consonance.invitation.adapter.SquareAdapter;
 import com.consonance.invitation.test.MonitorData;
 import com.consonance.invitation.widget.EndlessRecyclerOnScrollListener;
 
@@ -25,7 +25,7 @@ import com.consonance.invitation.widget.EndlessRecyclerOnScrollListener;
 public class SquareWomenFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     public static final String TAG = SquareWomenFragment.class.getSimpleName();
     public RecyclerView mRecyclerView;
-    private OrderAdapter mAdapter;
+    private SquareAdapter mAdapter;
     private SwipeRefreshLayout mSwipeLayout;
 
     @Override
@@ -48,7 +48,7 @@ public class SquareWomenFragment extends Fragment implements SwipeRefreshLayout.
         mSwipeLayout.setOnRefreshListener(this);
         mSwipeLayout.setColorSchemeResources(android.R.color.holo_blue_bright, android.R.color.holo_green_light,
                 android.R.color.holo_orange_light, android.R.color.holo_red_light);
-        mAdapter = new OrderAdapter(getActivity());
+        mAdapter = new SquareAdapter(getActivity());
         mAdapter.setData(MonitorData.getOrderEntityList());
         /**线性布局*/
         mRecyclerView = (RecyclerView) view.findViewById(R.id.order_list);

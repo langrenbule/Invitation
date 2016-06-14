@@ -19,11 +19,11 @@ import java.util.List;
  * 订单系统适配器
  * Created by Deity on 2016/5/10.
  */
-public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> {
+public class SquareAdapter extends RecyclerView.Adapter<SquareAdapter.ViewHolder> {
     private Context context;
     private List<OrderEntity> mOrderList = new ArrayList<>();
 
-    public OrderAdapter(Context context){
+    public SquareAdapter(Context context){
         this.context = context;
     }
 
@@ -38,7 +38,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ViewHolder viewHolder = new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_invite_with_user,parent,false));
+        ViewHolder viewHolder = new ViewHolder(LayoutInflater.from(context).inflate(R.layout.order_item,parent,false));
         return viewHolder;
     }
 
@@ -60,8 +60,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
 
         public ViewHolder(View view){
             super(view);
-            i_user_display = (ImageView) view.findViewById(R.id.iv_head);
-            i_user_nickName = (TextView) view.findViewById(R.id.tv_userName);
+            i_user_display = (ImageView) view.findViewById(R.id.i_user_display);
+            i_user_nickName = (TextView) view.findViewById(R.id.i_user_nickName);
         }
     }
 }

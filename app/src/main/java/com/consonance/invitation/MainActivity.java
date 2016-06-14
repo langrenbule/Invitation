@@ -11,10 +11,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.consonance.invitation.adapter.InvitationFragmentAdapter;
-import com.consonance.invitation.adapter.OrderAdapter;
+import com.consonance.invitation.adapter.SquareAdapter;
 import com.consonance.invitation.fragment.InfomationFragment;
 import com.consonance.invitation.fragment.OrderFragment;
 import com.consonance.invitation.fragment.ReleaseFragment;
+import com.consonance.invitation.fragment.SetFragment;
 import com.consonance.invitation.fragment.SquareFragment;
 import com.deity.customview.widget.NavigationBar;
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //    @BindView(R.id.order_list)
     private static final int REFRESH_COMPLETE = 0X110;
     public RecyclerView mRecyclerView;
-    private OrderAdapter mAdapter;
+    private SquareAdapter mAdapter;
     private SwipeRefreshLayout mSwipeLayout;
     //
     private ViewPager mViewPager;
@@ -51,13 +52,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mNavigationBarList.add((NavigationBar)findViewById(R.id.tab_second));
         mNavigationBarList.add((NavigationBar)findViewById(R.id.tab_third));
         mNavigationBarList.add((NavigationBar)findViewById(R.id.tab_fourth));
+        mNavigationBarList.add((NavigationBar)findViewById(R.id.tab_set));
 
         mNavigationBarList.get(0).setAlpha(1.0f);
 
     }
 
     private void pagerAdapter() {
-        Fragment[] mFragmentArray = new Fragment[]{new SquareFragment(),new ReleaseFragment(),new InfomationFragment(),new OrderFragment()};
+        Fragment[] mFragmentArray = new Fragment[]{new SquareFragment(),new InfomationFragment(),new ReleaseFragment(),new OrderFragment(),new SetFragment()};
         mFragmentList = Arrays.asList(mFragmentArray);
         InvitationFragmentAdapter adapter = new InvitationFragmentAdapter(getSupportFragmentManager());
         adapter.setData(mFragmentList);
@@ -77,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        mSwipeLayout.setOnRefreshListener(this);
 //        mSwipeLayout.setColorScheme(android.R.color.holo_blue_bright, android.R.color.holo_green_light,
 //                android.R.color.holo_orange_light, android.R.color.holo_red_light);
-//        mAdapter = new OrderAdapter(MainActivity.this);
+//        mAdapter = new SquareAdapter(MainActivity.this);
 //        mAdapter.setData(MonitorData.getOrderEntityList());
 //        /**线性布局*/
 //        mRecyclerView = (RecyclerView) this.findViewById(R.id.order_list);

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relative"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/listview_selector"
+    android:paddingBottom="10.0dip"
+    android:paddingLeft="10.0dip"
+    android:paddingRight="10.0dip">
+
+    <RelativeLayout
+        android:id="@+id/layout_head"
+        android:layout_width="63.0dip"
+        android:layout_height="63.0dip"
+        android:layout_marginRight="5.0dip"
+        android:layout_marginTop="5.0dip">
+
+        <ImageView
+            android:id="@+id/iv_head"
+            android:layout_width="60.0dip"
+            android:layout_height="60.0dip"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:contentDescription="@string/image"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/tv_num"
+            android:layout_width="wrap_content"
+            android:layout_height="20.0dip"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/bg_num_cicle"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_numtext"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/tv_level"
+            android:layout_width="20.0dip"
+            android:layout_height="15.0dip"
+            android:layout_alignBottom="@+id/iv_head"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="3.0dip"
+            android:background="@drawable/v1"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_8" />
+
+        <ImageView
+            android:id="@+id/iv_signShop"
+            android:layout_width="22.0dip"
+            android:layout_height="22.0dip"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:contentDescription="@string/image"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/layout_head"
+        android:gravity="right"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/text_size12" />
+
+    <TextView
+        android:id="@+id/tv_userName"
+        style="@style/TextView_Information_Title"
+        android:layout_width="wrap_content"
+        android:layout_height="20.0dip"
+        android:layout_below="@+id/tv_time"
+        android:layout_toRightOf="@+id/layout_head"
+        android:gravity="center_vertical" />
+
+    <LinearLayout
+        android:id="@+id/layoutId"
+        android:layout_width="wrap_content"
+        android:layout_height="20.0dip"
+        android:layout_alignTop="@+id/tv_name"
+        android:layout_marginLeft="10.0dip"
+        android:layout_toRightOf="@+id/tv_name"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="visible">
+
+        <ImageView
+            android:id="@+id/iv2_rep1"
+            android:layout_width="10.0dip"
+            android:layout_height="10.0dip"
+            android:layout_marginRight="3.0dip"
+            android:contentDescription="@string/image"
+            android:scaleType="fitXY" />
+
+        <ImageView
+            android:id="@+id/iv2_rep2"
+            android:layout_width="10.0dip"
+            android:layout_height="10.0dip"
+            android:layout_marginRight="3.0dip"
+            android:contentDescription="@string/image"
+            android:scaleType="fitXY" />
+
+        <ImageView
+            android:id="@+id/iv2_rep3"
+            android:layout_width="10.0dip"
+            android:layout_height="10.0dip"
+            android:layout_marginRight="3.0dip"
+            android:contentDescription="@string/image"
+            android:scaleType="fitXY" />
+
+        <ImageView
+            android:id="@+id/iv2_rep4"
+            android:layout_width="10.0dip"
+            android:layout_height="10.0dip"
+            android:layout_marginRight="3.0dip"
+            android:contentDescription="@string/image"
+            android:scaleType="fitXY" />
+
+        <ImageView
+            android:id="@+id/iv2_rep5"
+            android:layout_width="10.0dip"
+            android:layout_height="10.0dip"
+            android:contentDescription="@string/image"
+            android:scaleType="fitXY" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_content"
+        style="@style/TextView_Information_Content"
+        android:layout_alignBottom="@+id/layout_head"
+        android:layout_marginBottom="5.0dip"
+        android:layout_toRightOf="@+id/layout_head"
+        android:singleLine="true" />
+</RelativeLayout>

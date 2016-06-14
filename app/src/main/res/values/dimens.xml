@@ -9,4 +9,10 @@
     <dimen name="size_8">8.0dip</dimen>
     <dimen name="item_user_content">11.0dip</dimen>
     <dimen name="item_user_age">11.0dip</dimen>
+
+    <dimen name="reg_item_height">40.0dip</dimen>
+    <dimen name="text_size15">15.0dip</dimen>
+    <dimen name="text_size13">13.0dip</dimen>
+    <dimen name="size_numtext">10.0dip</dimen>
+    <dimen name="text_size12">12.0dip</dimen>
 </resources>

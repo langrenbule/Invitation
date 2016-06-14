@@ -3,8 +3,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <TextView
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_lv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="2"/>
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/order_list"
+            android:layout_width="match_parent"
+            android:fadingEdge="none"
+            android:layout_height="match_parent"
+            android:divider="@color/colorGray"
+            android:dividerHeight="1dp">
+
+        </android.support.v7.widget.RecyclerView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <ImageView
+        android:id="@+id/reLoadImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:clickable="true"
+        android:src="@drawable/base_empty_view"
+        android:visibility="gone" />
 </LinearLayout>

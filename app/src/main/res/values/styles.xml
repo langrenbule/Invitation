@@ -69,6 +69,15 @@
         <item name="android:layout_height">40.0dip</item>
     </style>
 
+    <style name="Layout_SomeItems">
+        <item name="android:orientation">vertical</item>
+        <item name="android:background">@color/bg_item_edge_reg</item>
+        <item name="android:paddingLeft">0.5dip</item>
+        <item name="android:paddingTop">0.5dip</item>
+        <item name="android:paddingRight">0.5dip</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
 
     <style name="Text_item_user_content">
         <item name="android:textSize">@dimen/item_user_content</item>
@@ -77,4 +86,54 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:singleLine">true</item>
     </style>
+
+    <style name="TextView_Information_Title">
+        <item name="android:textSize">16.0dip</item>
+        <item name="android:textColor">@color/grayB</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="TextView_Information_Content">
+        <item name="android:textSize">14.0dip</item>
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">5.0dip</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="Layout_Item_White_BottomLine" parent="@style/Layout_Item_White">
+        <item name="android:background">@drawable/bg_item_bottom_selector</item>
+    </style>
+    <style name="Layout_Item_White">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:padding">10.0dip</item>
+        <item name="android:clickable">true</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">@dimen/reg_item_height</item>
+    </style>
+
+    <style name="ImageView_ItemIcon">
+        <item name="android:layout_width">20.0dip</item>
+        <item name="android:layout_height">20.0dip</item>
+        <item name="android:scaleType">fitCenter</item>
+    </style>
+
+
+    <style name="ImageView_ItemIcon_More" parent="@style/ImageView_ItemIcon">
+        <item name="android:src">@drawable/ic_more_white</item>
+    </style>
+
+    <style name="TextView_ItemInfoTitle">
+        <item name="android:textSize">15.0dip</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
 </resources>

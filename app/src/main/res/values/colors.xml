@@ -10,6 +10,7 @@
     <color name="activity_background">#ffe3e3e3</color>
     <color name="color_main">#ffff4e00</color>
     <color name="white">#ffffffff</color>
+    <color name="color_listView_press">#ffe5e5e5</color>
     <color name="bg_gender">#ff8d8d8d</color>
     <color name="black_deep">#ff000000</color>
     <color name="black">#ff000000</color>
@@ -18,4 +19,8 @@
     <color name="colorGray">#BFBFBF</color>
     <color name="tabClick">#22000000</color>
     <color name="item_pressed">#7F59AB</color>
+
+    <color name="bg_item_edge_reg">#ffd6d6d6</color>
+    <color name="gray">#ff808080</color>
+    <color name="grayB">#ff333333</color>
 </resources>

@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/activity_background"
+    android:orientation="vertical"
+    android:padding="10.0dip">
+
+    <LinearLayout style="@style/Layout_SomeItems">
+
+        <LinearLayout
+            android:id="@+id/layout_changePwd"
+            style="@style/Layout_Item_White_BottomLine">
+
+            <ImageView
+                style="@style/ImageView_ItemIcon"
+                android:src="@drawable/ic_more_change_pwd" />
+
+            <TextView
+                style="@style/TextView_ItemInfoTitle"
+                android:layout_marginLeft="10.0dip"
+                android:layout_weight="1.0"
+                android:text="@string/MoreTitle_ChangePassword" />
+
+            <ImageView style="@style/ImageView_ItemIcon_More" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_blacklist"
+            style="@style/Layout_Item_White_BottomLine">
+
+            <ImageView
+                style="@style/ImageView_ItemIcon"
+                android:src="@drawable/ic_more_blacklist" />
+
+            <TextView
+                style="@style/TextView_ItemInfoTitle"
+                android:layout_marginLeft="10.0dip"
+                android:layout_weight="1.0"
+                android:text="@string/MoreTitle_Blacklist" />
+
+            <ImageView style="@style/ImageView_ItemIcon_More" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_setting"
+            style="@style/Layout_Item_White_BottomLine">
+
+            <ImageView
+                style="@style/ImageView_ItemIcon"
+                android:src="@drawable/ic_more_setting" />
+
+            <TextView
+                style="@style/TextView_ItemInfoTitle"
+                android:layout_marginLeft="10.0dip"
+                android:layout_weight="1.0"
+                android:text="@string/MoreTitle_Setting" />
+
+            <ImageView style="@style/ImageView_ItemIcon_More" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/Layout_SomeItems"
+        android:layout_marginTop="15.0dip">
+
+        <LinearLayout
+            android:id="@+id/layout_feedback"
+            style="@style/Layout_Item_White_BottomLine">
+
+            <ImageView
+                style="@style/ImageView_ItemIcon"
+                android:src="@drawable/ic_more_feedback" />
+
+            <TextView
+                style="@style/TextView_ItemInfoTitle"
+                android:layout_marginLeft="10.0dip"
+                android:layout_weight="1.0"
+                android:text="@string/MoreTitle_Feedback" />
+
+            <ImageView style="@style/ImageView_ItemIcon_More" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_score"
+            style="@style/Layout_Item_White_BottomLine"
+            android:visibility="gone">
+
+            <ImageView
+                style="@style/ImageView_ItemIcon"
+                android:src="@drawable/ic_more_score" />
+
+            <TextView
+                style="@style/TextView_ItemInfoTitle"
+                android:layout_marginLeft="10.0dip"
+                android:layout_weight="1.0"
+                android:text="@string/MoreTitle_Score" />
+
+            <ImageView style="@style/ImageView_ItemIcon_More" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_problem"
+            style="@style/Layout_Item_White_BottomLine">
+
+            <ImageView
+                style="@style/ImageView_ItemIcon"
+                android:src="@drawable/ic_more_problem" />
+
+            <TextView
+                style="@style/TextView_ItemInfoTitle"
+                android:layout_marginLeft="10.0dip"
+                android:layout_weight="1.0"
+                android:text="@string/MoreTitle_Problem" />
+
+            <ImageView style="@style/ImageView_ItemIcon_More" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/Layout_SomeItems"
+        android:layout_marginTop="15.0dip">
+
+        <LinearLayout
+            android:id="@+id/layout_detectionUpdates"
+            style="@style/Layout_Item_White_BottomLine">
+
+            <ImageView
+                style="@style/ImageView_ItemIcon"
+                android:src="@drawable/ic_more_detection_updates" />
+
+            <TextView
+                style="@style/TextView_ItemInfoTitle"
+                android:layout_marginLeft="10.0dip"
+                android:layout_weight="1.0"
+                android:text="@string/MoreTitle_DetectionUpdates" />
+
+            <ImageView style="@style/ImageView_ItemIcon_More" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_fuzhi"
+            style="@style/Layout_Item_White_BottomLine"
+            android:visibility="gone">
+
+            <ImageView
+                style="@style/ImageView_ItemIcon"
+                android:src="@drawable/ic_more_fuzhi" />
+
+            <TextView
+                style="@style/TextView_ItemInfoTitle"
+                android:layout_marginLeft="10.0dip"
+                android:layout_weight="1.0"
+                android:text="@string/fuzhi" />
+
+            <ImageView style="@style/ImageView_ItemIcon_More" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_clearTheCache"
+            style="@style/Layout_Item_White_BottomLine"
+            android:visibility="gone">
+
+            <ImageView
+                style="@style/ImageView_ItemIcon"
+                android:src="@drawable/ic_more_clear_cache" />
+
+            <TextView
+                style="@style/TextView_ItemInfoTitle"
+                android:layout_marginLeft="10.0dip"
+                android:text="@string/MoreTitle_ClearTheCache" />
+
+            <TextView
+                android:id="@+id/tv_cache"
+                android:layout_width="0.0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:text="(当前缓存0.25M)"
+                android:textColor="@color/gray"
+                android:textSize="10.0dip" />
+
+            <ImageView style="@style/ImageView_ItemIcon_More" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_exit"
+        style="@style/Button_Long_Text"
+        android:layout_marginTop="15.0dip"
+        android:text="@string/More_ExitTheAccount" />
+</LinearLayout>

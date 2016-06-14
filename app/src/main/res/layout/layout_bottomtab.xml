@@ -18,7 +18,7 @@
         app:image="@drawable/ic_search_grey600_24dp"
         app:clickimage="@drawable/ic_search_black_24dp"
         app:clickcolor="#FF3F9FE0"
-        app:text="发布"
+        app:text="消息"
         app:text_size="12dp"
         style="@style/main_tabbutton" />
 
@@ -27,7 +27,7 @@
         app:image="@drawable/ic_notifications_none_grey600_24dp"
         app:clickimage="@drawable/ic_notifications_black_24dp"
         app:clickcolor="#FF3F9FE0"
-        app:text="消息"
+        app:text="发布"
         app:text_size="12dp"
         style="@style/main_tabbutton" />
 
@@ -37,6 +37,15 @@
         app:clickimage="@drawable/ic_favorite_grey600_24dp"
         app:clickcolor="#FF3F9FE0"
         app:text="订单"
+        app:text_size="12dp"
+        style="@style/main_tabbutton" />
+
+    <com.deity.customview.widget.NavigationBar
+        android:id="@+id/tab_set"
+        app:image="@drawable/ic_favorite_outline_grey600_24dp"
+        app:clickimage="@drawable/ic_favorite_grey600_24dp"
+        app:clickcolor="#FF3F9FE0"
+        app:text="我的"
         app:text_size="12dp"
         style="@style/main_tabbutton" />
 

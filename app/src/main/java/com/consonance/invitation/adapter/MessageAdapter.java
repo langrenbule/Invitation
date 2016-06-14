@@ -19,11 +19,11 @@ import java.util.List;
  * 订单系统适配器
  * Created by Deity on 2016/5/10.
  */
-public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> {
+public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
     private Context context;
     private List<OrderEntity> mOrderList = new ArrayList<>();
 
-    public OrderAdapter(Context context){
+    public MessageAdapter(Context context){
         this.context = context;
     }
 
@@ -38,7 +38,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ViewHolder viewHolder = new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_invite_with_user,parent,false));
+        ViewHolder viewHolder = new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_chat_message,parent,false));
         return viewHolder;
     }
 
