@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 
 /**
  * Created by Deity on 2016/6/13.
+ * https://www.easydone.cn/2015/10/26/
  */
 public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScrollListener {
     private int previousTotal = 0;
@@ -33,8 +34,7 @@ public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScr
                 previousTotal = totalItemCount;
             }
         }
-        if (!loading
-                && (totalItemCount - visibleItemCount) <= firstVisibleItem) {
+        if (!loading&& (totalItemCount - visibleItemCount) <= firstVisibleItem) {
             currentPage++;
             onLoadMore(currentPage);
             loading = true;

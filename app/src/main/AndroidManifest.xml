@@ -1,11 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.consonance.invitation">
 
+    <permission
+        android:name="com.consonance.invitation.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.consonance.invitation.permission.JPUSH_MESSAGE" />
     <!-- Include following permission if you load images from Internet -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- Include following permission if you want to cache images on SD card -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+
+    <!-- JMessage Demo required for record audio-->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+
+    <!-- Optional for location -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -13,7 +41,9 @@
         android:label="@string/app_name"
         android:name=".data.InApplication"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:screenOrientation="portrait">
+        <!--
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -24,6 +54,177 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        -->
+        <!-- Required Push SDK核心功能-->
+        <service
+            android:name="cn.jpush.android.service.PushService"
+            android:enabled="true"
+            android:exported="false"
+            android:process=":remote">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTER" />
+                <action android:name="cn.jpush.android.intent.REPORT" />
+                <action android:name="cn.jpush.android.intent.PushService" />
+                <action android:name="cn.jpush.android.intent.PUSH_TIME" />
+            </intent-filter>
+        </service>
+
+        <!-- Required Push SDK核心功能-->
+        <receiver
+            android:name="cn.jpush.android.service.PushReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter android:priority="1000">
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" />  <!--Required  显示通知栏 -->
+                <category android:name="com.consonance.invitation" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+            <!-- Optional -->
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Required Push SDK核心功能 -->
+        <activity
+            android:name="cn.jpush.android.ui.PushActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="cn.jpush.android.ui.PushActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="com.consonance.invitation" />
+            </intent-filter>
+        </activity>
+        <!-- Required Push SDK核心功能 -->
+        <service
+            android:name="cn.jpush.android.service.DownloadService"
+            android:enabled="true"
+            android:exported="false" />
+        <!-- Required Push SDK核心功能 -->
+        <receiver android:name="cn.jpush.android.service.AlarmReceiver" android:exported="false"/>
+
+
+        <!-- IM Required IM SDK核心功能-->
+        <receiver
+            android:name="cn.jpush.im.android.helpers.IMReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter android:priority="1000">
+                <action android:name="cn.jpush.im.android.action.IM_RESPONSE" />
+                <action android:name="cn.jpush.im.android.action.NOTIFICATION_CLICK_PROXY" />
+
+                <category android:name="com.consonance.invitation" />
+            </intent-filter>
+        </receiver>
+
+        <!-- option 可选项。用于同一设备中不同应用的JPush服务相互拉起的功能。 -->
+        <!-- 若不启用该功能可删除该组件，将不拉起其他应用也不能被其他应用拉起 -->
+        <service
+            android:name="cn.jpush.android.service.DaemonService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.DaemonService" />
+                <category android:name="com.consonance.invitation" />
+            </intent-filter>
+
+        </service>
+
+        <!-- Required. Enable it you can get statistics data with channel -->
+        <meta-data
+            android:name="JPUSH_CHANNEL"
+            android:value="developer-default" />
+        <!-- Required. AppKey copied from Portal -->
+        <meta-data
+            android:name="JPUSH_APPKEY"
+            android:value="437c5abdd497e96081ba83a8" /><!--  </>值来自开发者平台取得的AppKey-->
+
+        <activity
+            android:name="com.consonance.invitation.chatting.BaseActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.consonance.invitation.chatting.LoginActivity"
+            android:theme="@style/noTitle"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
+        <activity
+            android:name="com.consonance.invitation.chatting.MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.consonance.invitation.chatting.RegisterActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="com.consonance.invitation.chatting.MeInfoActivity" />
+        <activity
+            android:name="com.consonance.invitation.chatting.ChatActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="com.consonance.invitation.chatting.ReloginActivity"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
+        <activity
+            android:name="com.consonance.invitation.chatting.ChatDetailActivity" />
+        <activity
+            android:name="com.consonance.invitation.chatting.GroupSettingActivity"
+            android:theme="@style/group_setting_dialog" />
+        <activity
+            android:name="com.consonance.invitation.chatting.FriendInfoActivity" />
+        <activity
+            android:name="com.consonance.invitation.chatting.CreateGroupActivity" />
+        <activity
+            android:name="com.consonance.invitation.chatting.PickPictureTotalActivity" />
+        <activity
+            android:name="com.consonance.invitation.chatting.PickPictureActivity" />
+        <activity
+            android:name="com.consonance.invitation.chatting.BrowserViewPagerActivity" />
+        <activity
+            android:name="com.consonance.invitation.chatting.SettingActivity" />
+        <activity
+            android:name="com.consonance.invitation.chatting.NotificationSettingActivity" />
+        <activity
+            android:name="com.consonance.invitation.chatting.DisturbSettingActivity" />
+        <activity
+            android:name="com.consonance.invitation.chatting.ResetPasswordActivity"
+            android:windowSoftInputMode="adjustResize|stateAlwaysVisible"/>
+        <activity
+            android:name="com.consonance.invitation.chatting.FixProfileActivity"
+            android:windowSoftInputMode="adjustResize|stateAlwaysVisible" />
+        <activity
+            android:name="com.consonance.invitation.chatting.ResetNickNameActivity"
+            android:windowSoftInputMode="adjustResize|stateAlwaysVisible"/>
+        <activity
+            android:name="com.consonance.invitation.chatting.SelectAreaActivity"
+            android:windowSoftInputMode="adjustResize|stateAlwaysVisible"/>
+        <activity
+            android:name="com.consonance.invitation.chatting.EditSignatureActivity"
+            android:windowSoftInputMode="adjustResize|stateAlwaysVisible"/>
+        <activity
+            android:name="com.consonance.invitation.chatting.EditNoteNameActivity" />
+        <activity
+            android:name="com.consonance.invitation.chatting.AboutActivity" />
+        <activity
+            android:name="com.consonance.invitation.chatting.SelectFriendActivity"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name="com.consonance.invitation.chatting.MembersInChatActivity" />
+        <activity
+            android:name="com.consonance.invitation.chatting.CropImageActivity" />
+
     </application>
 
 </manifest>

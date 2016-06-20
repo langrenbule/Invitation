@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.consonance.invitation.R;
+import com.consonance.invitation.adapter.HeaderViewRecyclerAdapter;
 import com.consonance.invitation.adapter.SquareAdapter;
 import com.consonance.invitation.test.MonitorData;
 import com.consonance.invitation.widget.EndlessRecyclerOnScrollListener;
@@ -26,6 +27,7 @@ public class SquareWomenFragment extends Fragment implements SwipeRefreshLayout.
     public static final String TAG = SquareWomenFragment.class.getSimpleName();
     public RecyclerView mRecyclerView;
     private SquareAdapter mAdapter;
+    private HeaderViewRecyclerAdapter adapter;
     private SwipeRefreshLayout mSwipeLayout;
 
     @Override
@@ -50,10 +52,12 @@ public class SquareWomenFragment extends Fragment implements SwipeRefreshLayout.
                 android.R.color.holo_orange_light, android.R.color.holo_red_light);
         mAdapter = new SquareAdapter(getActivity());
         mAdapter.setData(MonitorData.getOrderEntityList());
+        adapter = new HeaderViewRecyclerAdapter(mAdapter);
+
         /**线性布局*/
         mRecyclerView = (RecyclerView) view.findViewById(R.id.order_list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setAdapter(adapter);
         mRecyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener(new LinearLayoutManager(getActivity())) {
             @Override
             public void onLoadMore(int currentPage) {
@@ -69,6 +73,13 @@ public class SquareWomenFragment extends Fragment implements SwipeRefreshLayout.
         mAdapter.notifyDataSetChanged();
         Toast.makeText(getActivity(), "Refresh Finished!", Toast.LENGTH_SHORT).show();
     }
+
+//    private void createLoadMoreView() {
+//        View loadMoreView = LayoutInflater
+//                .from(getActivity())
+//                .inflate(R.layout.view_load_more, recyclerView, false);
+//        adapter.addFooterView(loadMoreView);
+//    }
 
     private void loadMoreData() {
         mSwipeLayout.setRefreshing(false);
