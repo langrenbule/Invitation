@@ -25,6 +25,7 @@ import com.consonance.invitation.chatting.ConversationListFragment;
 import com.consonance.invitation.chatting.CropImageActivity;
 import com.consonance.invitation.chatting.FixProfileActivity;
 import com.consonance.invitation.chatting.LoginActivity;
+import com.consonance.invitation.chatting.MeFragment;
 import com.consonance.invitation.chatting.ReloginActivity;
 import com.consonance.invitation.controller.MainController;
 import com.consonance.invitation.data.InApplication;
@@ -61,7 +62,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private SquareFragment squareFragment;
     private ReleaseFragment releaseFragment;
     private OrderFragment orderFragment;
-    private SetFragment setFragment;
+//    private SetFragment setFragment;
+    private MeFragment meFragment;
 
     //
     private ViewPager mViewPager;
@@ -117,78 +119,78 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onResume();
     }
 
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (resultCode == Activity.RESULT_CANCELED) {
-//            return;
-//        }
-//        if (requestCode == InApplication.REQUEST_CODE_TAKE_PHOTO) {
-//            String path = mMainController.getPhotoPath();
-//            if (path != null) {
-//                File file = new File(path);
-//                if (file.isFile()) {
-//                    mUri = Uri.fromFile(file);
-//                    //拍照后直接进行裁剪
-////                mMainController.cropRawPhoto(mUri);
-//                    Intent intent = new Intent();
-//                    intent.putExtra("filePath", mUri.getPath());
-//                    intent.setClass(this, CropImageActivity.class);
-//                    startActivityForResult(intent, InApplication.REQUEST_CODE_CROP_PICTURE);
-//                }
-//            }
-//        } else if (requestCode == InApplication.REQUEST_CODE_SELECT_PICTURE) {
-//            if (data != null) {
-//                Uri selectedImg = data.getData();
-//                if (selectedImg != null) {
-//                    String[] filePathColumn = { MediaStore.Images.Media.DATA };
-//                    Cursor cursor = this.getContentResolver()
-//                            .query(selectedImg, filePathColumn, null, null, null);
-//                    if (null == cursor) {
-//                        String path = selectedImg.getPath();
-//                        File file = new File(path);
-//                        if (file.isFile()) {
-//                            copyAndCrop(file);
-//                            return;
-//                        } else {
-//                            Toast.makeText(this, this.getString(R.string.picture_not_found),
-//                                    Toast.LENGTH_SHORT).show();
-//                            return;
-//                        }
-//                    } else if (!cursor.moveToFirst()) {
-//                        Toast.makeText(this, this.getString(R.string.picture_not_found),
-//                                Toast.LENGTH_SHORT).show();
-//                        return;
-//                    }
-//                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-//                    String path = cursor.getString(columnIndex);
-//                    if (path != null) {
-//                        File file = new File(path);
-//                        if (!file.isFile()) {
-//                            Toast.makeText(this, this.getString(R.string.picture_not_found),
-//                                    Toast.LENGTH_SHORT).show();
-//                            cursor.close();
-//                        } else {
-//                            //如果是选择本地图片进行头像设置，复制到临时文件，并进行裁剪
-//                            copyAndCrop(file);
-//                            cursor.close();
-//                        }
-//                    }
-//                }
-//            }
-//        } else if (requestCode == InApplication.REQUEST_CODE_CROP_PICTURE) {
-////            mMainController.uploadUserAvatar(mUri.getPath());
-//            String path = data.getStringExtra("filePath");
-//            if (path != null) {
-//                mMainController.uploadUserAvatar(path);
-//            }
-//        } else if (resultCode == InApplication.RESULT_CODE_ME_INFO) {
-//            String newName = data.getStringExtra("newName");
-//            if (!TextUtils.isEmpty(newName)) {
-//                mMainController.refreshNickname(newName);
-//            }
-//        }
-//    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_CANCELED) {
+            return;
+        }
+        if (requestCode == InApplication.REQUEST_CODE_TAKE_PHOTO) {
+            String path = meFragment.getPhotoPath();
+            if (path != null) {
+                File file = new File(path);
+                if (file.isFile()) {
+                    mUri = Uri.fromFile(file);
+                    //拍照后直接进行裁剪
+//                mMainController.cropRawPhoto(mUri);
+                    Intent intent = new Intent();
+                    intent.putExtra("filePath", mUri.getPath());
+                    intent.setClass(this, CropImageActivity.class);
+                    startActivityForResult(intent, InApplication.REQUEST_CODE_CROP_PICTURE);
+                }
+            }
+        } else if (requestCode == InApplication.REQUEST_CODE_SELECT_PICTURE) {
+            if (data != null) {
+                Uri selectedImg = data.getData();
+                if (selectedImg != null) {
+                    String[] filePathColumn = { MediaStore.Images.Media.DATA };
+                    Cursor cursor = this.getContentResolver()
+                            .query(selectedImg, filePathColumn, null, null, null);
+                    if (null == cursor) {
+                        String path = selectedImg.getPath();
+                        File file = new File(path);
+                        if (file.isFile()) {
+                            copyAndCrop(file);
+                            return;
+                        } else {
+                            Toast.makeText(this, this.getString(R.string.picture_not_found),
+                                    Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    } else if (!cursor.moveToFirst()) {
+                        Toast.makeText(this, this.getString(R.string.picture_not_found),
+                                Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                    String path = cursor.getString(columnIndex);
+                    if (path != null) {
+                        File file = new File(path);
+                        if (!file.isFile()) {
+                            Toast.makeText(this, this.getString(R.string.picture_not_found),
+                                    Toast.LENGTH_SHORT).show();
+                            cursor.close();
+                        } else {
+                            //如果是选择本地图片进行头像设置，复制到临时文件，并进行裁剪
+                            copyAndCrop(file);
+                            cursor.close();
+                        }
+                    }
+                }
+            }
+        } else if (requestCode == InApplication.REQUEST_CODE_CROP_PICTURE) {
+//            mMainController.uploadUserAvatar(mUri.getPath());
+            String path = data.getStringExtra("filePath");
+            if (path != null) {
+                MainController.getInstance().uploadUserAvatar(path);
+            }
+        } else if (resultCode == InApplication.RESULT_CODE_ME_INFO) {
+            String newName = data.getStringExtra("newName");
+            if (!TextUtils.isEmpty(newName)) {
+                MainController.getInstance().refreshNickname(newName);
+            }
+        }
+    }
 
     /**
      * 复制后裁剪文件
@@ -213,8 +215,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         squareFragment = new SquareFragment();
         releaseFragment = new ReleaseFragment();
         orderFragment = new OrderFragment();
-        setFragment = new SetFragment();
-        mFragmentArray = new Fragment[]{squareFragment,conversationListFragment,releaseFragment,orderFragment,setFragment};
+//        setFragment = new SetFragment();
+        meFragment = new MeFragment();
+        mFragmentArray = new Fragment[]{squareFragment,conversationListFragment,releaseFragment,orderFragment,meFragment};
     }
 
     private void initView() {
@@ -231,7 +234,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void pagerAdapter() {
-        mFragmentArray = new Fragment[]{new SquareFragment(),new ConversationListFragment(),new ReleaseFragment(),new OrderFragment(),new SetFragment()};
+//        mFragmentArray = new Fragment[]{new SquareFragment(),new ConversationListFragment(),new ReleaseFragment(),new OrderFragment(),new SetFragment()};
         mFragmentList = Arrays.asList(mFragmentArray);
         InvitationFragmentAdapter adapter = new InvitationFragmentAdapter(getSupportFragmentManager());
         adapter.setData(mFragmentList);

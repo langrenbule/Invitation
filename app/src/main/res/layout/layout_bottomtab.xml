@@ -15,8 +15,8 @@
 
     <com.deity.customview.widget.NavigationBar
         android:id="@+id/tab_second"
-        app:image="@drawable/ic_search_grey600_24dp"
-        app:clickimage="@drawable/ic_search_black_24dp"
+        app:image="@drawable/actionbar_msg_sel"
+        app:clickimage="@drawable/actionbar_msg"
         app:clickcolor="#FF3F9FE0"
         app:text="消息"
         app:text_size="12dp"
@@ -42,8 +42,8 @@
 
     <com.deity.customview.widget.NavigationBar
         android:id="@+id/tab_set"
-        app:image="@drawable/ic_favorite_outline_grey600_24dp"
-        app:clickimage="@drawable/ic_favorite_grey600_24dp"
+        app:image="@drawable/actionbar_me_sel"
+        app:clickimage="@drawable/actionbar_me"
         app:clickcolor="#FF3F9FE0"
         app:text="我的"
         app:text_size="12dp"

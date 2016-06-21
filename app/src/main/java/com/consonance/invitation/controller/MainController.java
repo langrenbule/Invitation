@@ -31,6 +31,8 @@ public class MainController implements OnClickListener, OnPageChangeListener {
 
     private final static String TAG = "MainController";
 
+
+
     private ConversationListFragment mConvListFragment;
     private MeFragment mMeActivity;
     private MainView mMainView;
@@ -39,6 +41,20 @@ public class MainController implements OnClickListener, OnPageChangeListener {
     // 裁剪后图片的宽(X)和高(Y), 720 X 720的正方形。
     private static int OUTPUT_X = 720;
     private static int OUTPUT_Y = 720;
+    private static MainController mainController;
+
+    private MainController(){};
+
+    public static MainController getInstance(){
+        if (null==mainController){
+            synchronized (MainController.class){
+                if(null==mainController){
+                    mainController = new MainController();
+                }
+            }
+        }
+        return mainController;
+    }
 
     public MainController(MainView mMainView, MainActivity context) {
         this.mMainView = mMainView;
@@ -102,6 +118,8 @@ public class MainController implements OnClickListener, OnPageChangeListener {
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
         mContext.startActivityForResult(intent, InApplication.REQUEST_CODE_CROP_PICTURE);
     }
+
+
 
     public void uploadUserAvatar(final String path) {
         mDialog = new ProgressDialog(mContext);
