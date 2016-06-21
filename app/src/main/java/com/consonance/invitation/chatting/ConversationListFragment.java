@@ -139,7 +139,7 @@ public class ConversationListFragment extends BaseFragment {
         if (mMenuPopWindow.isShowing()) {
             mMenuPopWindow.dismiss();
         } else {
-//            mMenuPopWindow.showAsDropDown(mRootView.findViewById(R.id.create_group_btn), -10, -5);
+            mMenuPopWindow.showAsDropDown(mRootView.findViewById(R.id.create_group_btn), -10, -5);
         }
     }
 
