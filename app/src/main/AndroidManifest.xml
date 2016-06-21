@@ -43,7 +43,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:screenOrientation="portrait">
-        <!--
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -54,7 +54,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        -->
+
         <!-- Required Push SDK核心功能-->
         <service
             android:name="cn.jpush.android.service.PushService"
@@ -160,11 +160,6 @@
             android:name="com.consonance.invitation.chatting.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="com.consonance.invitation.chatting.RegisterActivity"
