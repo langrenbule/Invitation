@@ -13,12 +13,13 @@ import android.view.ViewGroup;
 import com.consonance.invitation.R;
 import com.consonance.invitation.adapter.SquareAdapter;
 import com.consonance.invitation.test.MonitorData;
+import com.deity.customview.widget.RefreshView;
 
 /**
  * Created by Deity on 2016/6/12.
  */
 public class SquareNeighborFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
-    public RecyclerView mRecyclerView;
+    public RefreshView mRecyclerView;
     private SquareAdapter mAdapter;
     private SwipeRefreshLayout mSwipeLayout;
 
@@ -43,9 +44,24 @@ public class SquareNeighborFragment extends Fragment implements SwipeRefreshLayo
         mAdapter = new SquareAdapter(getActivity());
         mAdapter.setData(MonitorData.getOrderEntityList());
         /**线性布局*/
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.order_list);
+        mRecyclerView = (RefreshView) view.findViewById(R.id.order_list);
+        mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.setAutoLoadMoreEnable(true);
         mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setLoadMoreListener(new RefreshView.LoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                mRecyclerView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mSwipeLayout.setRefreshing(false);
+                        mAdapter.addData(MonitorData.getOrderEntityList());
+                        mRecyclerView.notifyMoreFinish(true);
+                    }
+                }, 1000);
+            }
+        });
     }
 
     /**上拉刷新*/

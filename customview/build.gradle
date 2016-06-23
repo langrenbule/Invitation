@@ -1,2 +1,2 @@
-configurations.create("default")
-artifacts.add("default", file('customview .aar'))
+configurations.maybeCreate("default")
+artifacts.add("default", file('customview.aar'))

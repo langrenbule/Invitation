@@ -17,6 +17,7 @@ import com.consonance.invitation.adapter.HeaderViewRecyclerAdapter;
 import com.consonance.invitation.adapter.SquareAdapter;
 import com.consonance.invitation.test.MonitorData;
 import com.consonance.invitation.widget.EndlessRecyclerOnScrollListener;
+import com.deity.customview.widget.RefreshView;
 
 /**
  * Created by Deity on 2016/6/12.
@@ -25,7 +26,7 @@ import com.consonance.invitation.widget.EndlessRecyclerOnScrollListener;
  */
 public class SquareWomenFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     public static final String TAG = SquareWomenFragment.class.getSimpleName();
-    public RecyclerView mRecyclerView;
+    public RefreshView mRecyclerView;
     private SquareAdapter mAdapter;
     private HeaderViewRecyclerAdapter adapter;
     private SwipeRefreshLayout mSwipeLayout;
@@ -55,13 +56,22 @@ public class SquareWomenFragment extends Fragment implements SwipeRefreshLayout.
         adapter = new HeaderViewRecyclerAdapter(mAdapter);
 
         /**线性布局*/
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.order_list);
+        mRecyclerView = (RefreshView) view.findViewById(R.id.order_list);
+        mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(adapter);
-        mRecyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener(new LinearLayoutManager(getActivity())) {
+        mRecyclerView.setAutoLoadMoreEnable(true);
+        mRecyclerView.setLoadMoreListener(new RefreshView.LoadMoreListener() {
             @Override
-            public void onLoadMore(int currentPage) {
-                loadMoreData();
+            public void onLoadMore() {
+                mRecyclerView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mSwipeLayout.setRefreshing(false);
+                        mAdapter.addData(MonitorData.getOrderEntityList());
+                        mRecyclerView.notifyMoreFinish(true);
+                    }
+                }, 1000);
             }
         });
     }
