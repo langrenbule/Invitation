@@ -1,7 +1,6 @@
 package com.consonance.invitation;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -15,7 +14,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -29,13 +27,13 @@ import com.consonance.invitation.chatting.MeFragment;
 import com.consonance.invitation.chatting.ReloginActivity;
 import com.consonance.invitation.controller.MainController;
 import com.consonance.invitation.data.InApplication;
-import com.consonance.invitation.fragment.InfomationFragment;
+import com.consonance.invitation.data.Params;
+import com.consonance.invitation.event.UIEvent;
 import com.consonance.invitation.fragment.OrderFragment;
 import com.consonance.invitation.fragment.ReleaseFragment;
-import com.consonance.invitation.fragment.SetFragment;
 import com.consonance.invitation.fragment.SquareFragment;
+import com.consonance.invitation.utils.EventBusHelper;
 import com.consonance.invitation.utils.FileHelper;
-import com.consonance.invitation.utils.HandleResponseCode;
 import com.consonance.invitation.utils.SharePreferenceManager;
 import com.deity.customview.widget.NavigationBar;
 
@@ -47,7 +45,7 @@ import java.util.List;
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.model.UserInfo;
-import cn.jpush.im.api.BasicCallback;
+import cn.jpush.im.android.eventbus.EventBus;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, ViewPager.OnPageChangeListener{//implements SwipeRefreshLayout.OnRefreshListener,View.OnClickListener, ViewPager.OnPageChangeListener
 //    @BindView(R.id.order_list)
@@ -74,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 //        ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 //        initRecyclerView();
@@ -117,6 +116,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         conversationListFragment.sortConvList();
         super.onResume();
+    }
+
+    public void onEventBackgroundThread(UIEvent event){
+        switch (event.getCmdType()){
+            case MSG_SORT_MESSAGE:
+                conversationListFragment.sortConvList();
+                break;
+        }
     }
 
     @Override
@@ -233,6 +240,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
     private void pagerAdapter() {
 //        mFragmentArray = new Fragment[]{new SquareFragment(),new ConversationListFragment(),new ReleaseFragment(),new OrderFragment(),new SetFragment()};
         mFragmentList = Arrays.asList(mFragmentArray);
@@ -249,19 +262,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mViewPager.addOnPageChangeListener(this);
     }
 
-//    public void initRecyclerView(){
-//        mSwipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_lv);
-//        mSwipeLayout.setOnRefreshListener(this);
-//        mSwipeLayout.setColorScheme(android.R.color.holo_blue_bright, android.R.color.holo_green_light,
-//                android.R.color.holo_orange_light, android.R.color.holo_red_light);
-//        mAdapter = new SquareAdapter(MainActivity.this);
-//        mAdapter.setData(MonitorData.getOrderEntityList());
-//        /**线性布局*/
-//        mRecyclerView = (RecyclerView) this.findViewById(R.id.order_list);
-//        mRecyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-//        mRecyclerView.setAdapter(mAdapter);
-//    }
-
     private Handler mHandler = new Handler()
     {
         public void handleMessage(android.os.Message msg)
@@ -274,13 +274,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         };
     };
-
-//    @Override
-//    public void onRefresh() {
-//        //请求网络,这边我模拟耗时
-//        mHandler.sendEmptyMessageDelayed(REFRESH_COMPLETE, 2000);
-//
-//    }
 
     @Override
     public void onClick(View v) {

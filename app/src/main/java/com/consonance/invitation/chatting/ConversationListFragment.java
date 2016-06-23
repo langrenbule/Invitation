@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
+import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -302,9 +303,11 @@ public class ConversationListFragment extends BaseFragment {
     }
 
     public void sortConvList() {
+        System.out.println("First:"+System.currentTimeMillis());
         if (mConvListController != null) {
             mConvListController.getAdapter().sortConvList();
         }
+        System.out.println("Second:"+System.currentTimeMillis());
     }
 
 }

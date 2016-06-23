@@ -8,7 +8,6 @@ import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -214,7 +213,6 @@ public class ConversationListAdapter extends BaseAdapter {
         } else {
             viewHolder.headIcon.setImageResource(R.drawable.group);
             viewHolder.convName.setText(convItem.getTitle());
-            Log.d("ConversationListAdapter", "Conversation title: " + convItem.getTitle());
         }
 
         // TODO 更新Message的数量,
