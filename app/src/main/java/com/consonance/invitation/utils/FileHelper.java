@@ -35,6 +35,17 @@ public class FileHelper {
         return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
     }
 
+    public static String createImagePath(){
+        String dir = InApplication.PICTURE_DIR;
+        File destDir = new File(dir);
+        if (!destDir.exists()) {
+            destDir.mkdirs();
+        }
+        File file;
+        file = new File(dir, String.valueOf(System.currentTimeMillis()) + ".png");
+        return file.getAbsolutePath();
+    }
+
     public static String createAvatarPath(String userName) {
         String dir = InApplication.PICTURE_DIR;
         File destDir = new File(dir);

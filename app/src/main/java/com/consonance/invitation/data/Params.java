@@ -1,5 +1,7 @@
 package com.consonance.invitation.data;
 
+import java.util.List;
+
 /**
  * Created by Deity on 2016/6/23.
  */

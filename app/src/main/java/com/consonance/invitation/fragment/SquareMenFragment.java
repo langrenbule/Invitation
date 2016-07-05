@@ -61,6 +61,12 @@ public class SquareMenFragment extends Fragment implements SwipeRefreshLayout.On
                 }, 1000);
             }
         });
+        mRecyclerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     @Override

@@ -20,7 +20,10 @@
     <color name="item_pressed">#7F59AB</color>
 
     <color name="bg_item_edge_reg">#ffd6d6d6</color>
-    <color name="grayB">#ff333333</color>
+    <color name="gray3">#ff333333</color>
+    <color name="gray6">#ff666666</color>
+    <color name="gray9">#ff999999</color>
+    <color name="gray10">#ffefefef</color>
 
     <!--jmessage-->
     <!-- 全局使用的颜色 -->

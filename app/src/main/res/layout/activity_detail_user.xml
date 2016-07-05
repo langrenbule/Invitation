@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.zhy.android.percent.support.PercentLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_heightPercent="90%h"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/activity_bucket_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize" />
+
+        <RelativeLayout
+            android:id="@+id/layout_image"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/re_login_btn_def_color">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewPager"
+                android:layout_width="fill_parent"
+                android:layout_height="300.0dip" />
+
+            <LinearLayout
+                android:layout_width="26.0dip"
+                android:layout_height="26.0dip"
+                android:layout_alignBottom="@+id/viewPager"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="10.0dip"
+                android:layout_marginRight="10.0dip"
+                android:background="@drawable/bg_skill_num"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_img_index"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size13" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="2.0dip"
+                    android:text="@string/getskill_picture"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size11" />
+
+                <TextView
+                    android:id="@+id/tv_img_sum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="2.0dip"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size11" />
+            </LinearLayout>
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/layout_skill"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:paddingBottom="15.0dip"
+            android:paddingLeft="10.0dip"
+            android:paddingRight="10.0dip"
+            android:paddingTop="15.0dip">
+
+            <TextView
+                android:id="@+id/tv_skill"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="暖床"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size16" />
+
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/tv_skill"
+                android:layout_marginLeft="20.0dip"
+                android:layout_marginRight="2.0dip"
+                android:layout_toRightOf="@+id/tv_skill"
+                android:text="￥30元/单"
+                android:textColor="@color/color_main"
+                android:textSize="@dimen/text_size16" />
+
+            <TextView
+                android:id="@+id/tv_priceType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/tv_skill"
+                android:layout_toRightOf="@+id/tv_price"
+                android:paddingBottom="1.0dip"
+                android:textColor="@color/color_main"
+                android:textSize="@dimen/text_size13" />
+
+            <TextView
+                android:id="@+id/tv_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_skill"
+                android:layout_marginTop="5.0dip"
+                android:text="@string/work_tips"
+                android:textColor="@color/gray3"
+                android:textSize="@dimen/text_size14" />
+
+            <TextView
+                android:id="@+id/tv_remarks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_desc"
+                android:layout_marginTop="5.0dip"
+                android:text="线下交易"
+                android:textColor="@color/gray6"
+                android:textSize="@dimen/text_size13" />
+
+            <LinearLayout
+                android:id="@+id/layout_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_remarks"
+                android:layout_marginTop="5.0dip"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_execType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/gray6"
+                    android:textSize="@dimen/text_size13" />
+
+                <TextView
+                    android:id="@+id/tv_duration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10.0dip"
+                    android:textColor="@color/gray6"
+                    android:textSize="@dimen/text_size13" />
+            </LinearLayout>
+        </RelativeLayout>
+    </com.zhy.android.percent.support.PercentLinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_bottom_other"
+        android:layout_width="fill_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_height="60.0dip"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="10.0dip"
+        android:paddingRight="10.0dip">
+
+        <Button
+            android:id="@+id/btn_invite"
+            android:layout_width="0.0dip"
+            android:layout_height="40.0dip"
+            android:layout_weight="1.0"
+            android:text="@string/skillDetail_btn_invite"
+            android:textColor="@color/white"
+            style="@style/Button_Long_Text"
+            android:textSize="@dimen/text_size15" />
+
+    </LinearLayout>
+
+
+</com.zhy.android.percent.support.PercentRelativeLayout>
