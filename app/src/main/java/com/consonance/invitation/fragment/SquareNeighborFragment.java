@@ -1,5 +1,6 @@
 package com.consonance.invitation.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,9 +10,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.consonance.invitation.R;
+import com.consonance.invitation.UserDetailActivity;
 import com.consonance.invitation.adapter.SquareAdapter;
+import com.consonance.invitation.entity.OrderEntity;
 import com.consonance.invitation.test.MonitorData;
 import com.deity.customview.widget.RefreshView;
 
@@ -49,6 +53,14 @@ public class SquareNeighborFragment extends Fragment implements SwipeRefreshLayo
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAutoLoadMoreEnable(true);
         mRecyclerView.setAdapter(mAdapter);
+        mAdapter.setRecycleViewOnClickListener(new SquareAdapter.RecycleViewOnClickListener() {
+            @Override
+            public void onItemClick(View view, OrderEntity data) {
+                Toast.makeText(getActivity(),"Test",Toast.LENGTH_LONG).show();
+                Intent startUserDetail = new Intent(getActivity(), UserDetailActivity.class);
+                startActivity(startUserDetail);
+            }
+        });
         mRecyclerView.setLoadMoreListener(new RefreshView.LoadMoreListener() {
             @Override
             public void onLoadMore() {
