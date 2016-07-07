@@ -41,8 +41,8 @@ public class ReleaseFragment extends Fragment {
         public void onClick(View v) {
             switch (v.getId()){
                 case R.id.btn_ok:
-//                    Intent realseIntent = new Intent(getActivity(),RealseActivity.class);
-                    Intent realseIntent = new Intent(getActivity(),UserDetailActivity.class);
+                    Intent realseIntent = new Intent(getActivity(),RealseActivity.class);
+//                    Intent realseIntent = new Intent(getActivity(),UserDetailActivity.class);
                     startActivity(realseIntent);
                     break;
             }

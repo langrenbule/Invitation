@@ -62,10 +62,8 @@ public class AlbumHelper {
 	 * 得到缩略图
 	 */
 	private void getThumbnail() {
-		String[] projection = { Thumbnails._ID, Thumbnails.IMAGE_ID,
-				Thumbnails.DATA };
-		Cursor cursor = cr.query(Thumbnails.EXTERNAL_CONTENT_URI, projection,
-				null, null, null);
+		String[] projection = { Thumbnails._ID, Thumbnails.IMAGE_ID,Thumbnails.DATA };
+		Cursor cursor = cr.query(Thumbnails.EXTERNAL_CONTENT_URI, projection,null, null, null);
 		getThumbnailColumnData(cursor);
 	}
 
@@ -171,17 +169,9 @@ public class AlbumHelper {
 	 */
 	void buildImagesBucketList() {
 		long startTime = System.currentTimeMillis();
-
-		// 构造缩略图索引
-		getThumbnail();
-
-		// 构造相册索引
-		String columns[] = new String[] { Media._ID, Media.BUCKET_ID,
-				Media.PICASA_ID, Media.DATA, Media.DISPLAY_NAME, Media.TITLE,
-				Media.SIZE, Media.BUCKET_DISPLAY_NAME };
-		// 得到一个游标
-		Cursor cur = cr.query(Media.EXTERNAL_CONTENT_URI, columns, null, null,
-				null);
+		getThumbnail();// 构造缩略图索引
+		String columns[] = new String[] { Media._ID, Media.BUCKET_ID,Media.PICASA_ID, Media.DATA, Media.DISPLAY_NAME, Media.TITLE,Media.SIZE, Media.BUCKET_DISPLAY_NAME };// 构造相册索引
+		Cursor cur = cr.query(Media.EXTERNAL_CONTENT_URI, columns, null, null,null);// 得到一个游标
 		if (cur.moveToFirst()) {
 			// 获取指定列的索引
 			int photoIDIndex = cur.getColumnIndexOrThrow(Media._ID);
@@ -189,8 +179,7 @@ public class AlbumHelper {
 			int photoNameIndex = cur.getColumnIndexOrThrow(Media.DISPLAY_NAME);
 			int photoTitleIndex = cur.getColumnIndexOrThrow(Media.TITLE);
 			int photoSizeIndex = cur.getColumnIndexOrThrow(Media.SIZE);
-			int bucketDisplayNameIndex = cur
-					.getColumnIndexOrThrow(Media.BUCKET_DISPLAY_NAME);
+			int bucketDisplayNameIndex = cur.getColumnIndexOrThrow(Media.BUCKET_DISPLAY_NAME);
 			int bucketIdIndex = cur.getColumnIndexOrThrow(Media.BUCKET_ID);
 			int picasaIdIndex = cur.getColumnIndexOrThrow(Media.PICASA_ID);
 			// 获取图片总数
@@ -247,21 +236,18 @@ public class AlbumHelper {
 	}
 
 	/**
-	 * 得到图片集
-	 * 
+	 * 得到图片集/相册集合
 	 * @param refresh
 	 * @return
 	 */
 	public List<ImageBucket> getImagesBucketList(boolean refresh) {
-		if (refresh || (!refresh && !hasBuildImagesBucketList)) {
+		if (refresh ||!hasBuildImagesBucketList) {//只要相册集还没创建都会执行
 			buildImagesBucketList();
 		}
-		List<ImageBucket> tmpList = new ArrayList<ImageBucket>();
-		Iterator<Map.Entry<String, ImageBucket>> itr = bucketList.entrySet()
-				.iterator();
+		List<ImageBucket> tmpList = new ArrayList<>();
+		Iterator<Map.Entry<String, ImageBucket>> itr = bucketList.entrySet().iterator();
 		while (itr.hasNext()) {
-			Map.Entry<String, ImageBucket> entry = (Map.Entry<String, ImageBucket>) itr
-					.next();
+			Map.Entry<String, ImageBucket> entry = itr.next();
 			tmpList.add(entry.getValue());
 		}
 		return tmpList;

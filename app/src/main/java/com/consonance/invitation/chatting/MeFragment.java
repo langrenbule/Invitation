@@ -176,13 +176,11 @@ public class MeFragment extends BaseFragment {
                 intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.setType("image/*");
             } else {
-                intent = new Intent(Intent.ACTION_PICK,
-                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                intent = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             }
             getActivity().startActivityForResult(intent, InApplication.REQUEST_CODE_SELECT_PICTURE);
         } else {
-            Toast.makeText(this.getActivity(), mContext.getString(R.string.jmui_sdcard_not_exist_toast),
-                    Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.getActivity(), mContext.getString(R.string.jmui_sdcard_not_exist_toast),Toast.LENGTH_SHORT).show();
         }
 
     }

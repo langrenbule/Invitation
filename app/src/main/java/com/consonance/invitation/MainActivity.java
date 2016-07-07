@@ -151,8 +151,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Uri selectedImg = data.getData();
                 if (selectedImg != null) {
                     String[] filePathColumn = { MediaStore.Images.Media.DATA };
-                    Cursor cursor = this.getContentResolver()
-                            .query(selectedImg, filePathColumn, null, null, null);
+                    Cursor cursor = this.getContentResolver().query(selectedImg, filePathColumn, null, null, null);
                     if (null == cursor) {
                         String path = selectedImg.getPath();
                         File file = new File(path);
