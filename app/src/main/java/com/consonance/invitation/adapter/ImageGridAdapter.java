@@ -30,7 +30,6 @@ import java.util.Map;
 public class ImageGridAdapter extends BaseAdapter {
 
     private TextCallback textcallback = null;
-    final String TAG = getClass().getSimpleName();
     private Activity activity;
     List<ImageItem> dataList;
     public Map<String, String> map = new HashMap<>();

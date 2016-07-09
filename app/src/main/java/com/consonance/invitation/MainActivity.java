@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 String message = (String) event.getMessage();
                 ProgressDialogUtils.showDialog(MainActivity.this,message);
                 break;
-            case MSG_SORT_MESSAGE:
+            case MSG_SHOW_MESSAGE:
                 String tips = (String) event.getMessage();
                 Toast.makeText(MainActivity.this,tips,Toast.LENGTH_LONG).show();
                 break;
