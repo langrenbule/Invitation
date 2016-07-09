@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.consonance.invitation.adapter.ImgGridAdapter;
+import com.consonance.invitation.data.Params;
 import com.consonance.invitation.widget.AddPublicPicPop;
 
 import java.util.ArrayList;
@@ -61,6 +62,7 @@ public class RealseActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        imgGridAdapter.notifyDataSetChanged();
     }
 
     private static final int TAKE_PICTURE = 0x000000;
@@ -71,7 +73,8 @@ public class RealseActivity extends AppCompatActivity {
         switch (requestCode) {
             case TAKE_PICTURE:
                 if (imgGridAdapter.getCount()<maxNumber) {
-                    imgGridAdapter.addData(AddPublicPicPop.getPath());
+                    Params.UPLOAD_IMG_LIST.add(AddPublicPicPop.getPath());
+//                    imgGridAdapter.addData(AddPublicPicPop.getPath());
                     imgGridAdapter.notifyDataSetChanged();
                 }
                 break;

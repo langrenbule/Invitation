@@ -111,6 +111,7 @@ public class ImageGridAdapter extends BaseAdapter {
                         if (textcallback != null)
                             textcallback.onListen(selectTotal);
                         map.put(path, path);
+                        Params.UPLOAD_IMG_LIST.add(path);
 
                     } else if (!imageItem.isSelected) {
                         holder.selected.setImageResource(-1);
@@ -119,6 +120,7 @@ public class ImageGridAdapter extends BaseAdapter {
                         if (textcallback != null)
                             textcallback.onListen(selectTotal);
                         map.remove(path);
+                        Params.UPLOAD_IMG_LIST.remove(path);
                     }
                 } else if ((Params.UPLOAD_IMG_LIST.size()+selectTotal)>= 9) {
                     if (imageItem.isSelected) {
@@ -126,6 +128,7 @@ public class ImageGridAdapter extends BaseAdapter {
                         holder.selected.setImageResource(-1);
                         selectTotal--;
                         map.remove(path);
+                        Params.UPLOAD_IMG_LIST.remove(path);
                     } else {
                         EventBusHelper.sendUIEvent(Params.UIEventType.MSG_SHOW_MESSAGE,"最多选择9张图片");
                     }
