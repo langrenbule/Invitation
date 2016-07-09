@@ -6,8 +6,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.consonance.invitation.adapter.ImageGridAdapter;
+import com.consonance.invitation.data.Params;
 import com.consonance.invitation.entity.ImageItem;
-import com.consonance.invitation.utils.AlbumHelper;
 import com.consonance.invitation.utils.Bimp;
 
 import android.app.Activity;
@@ -25,43 +25,34 @@ import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
+import butterknife.BindView;
+import butterknife.BindViews;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+/**
+ *  图片选取
+ */
 public class ImageGridActivity extends Activity {
-    public static final String EXTRA_IMAGE_LIST = "imagelist";
+    private List<ImageItem> imageItems;
+    private GridView gridView;
+    private ImageGridAdapter adapter;
+    @BindView(R.id.bt)
+    public Button bt_ok;
 
-    List<ImageItem> dataList;
-    GridView gridView;
-    ImageGridAdapter adapter;
-    AlbumHelper helper;
-    Button bt;
-
-    Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case 0:
-                    Toast.makeText(ImageGridActivity.this, "最多选择9张图片", Toast.LENGTH_LONG).show();
-                    break;
-
-                default:
-                    break;
-            }
-        }
-    };
+    @OnClick
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_image_grid);
+        ButterKnife.bind(this);
 
-        helper = AlbumHelper.getHelper();
-        helper.init(getApplicationContext());
-
-        dataList = (List<ImageItem>) getIntent().getSerializableExtra(EXTRA_IMAGE_LIST);
+        imageItems = (List<ImageItem>) getIntent().getSerializableExtra(Params.EXTRA_IMAGE_LIST);
 
         initView();
-        bt = (Button) findViewById(R.id.bt);//【是否完成】 的 按钮
-        bt.setOnClickListener(new OnClickListener() {
+        bt_ok = (Button) findViewById(R.id.bt);//【是否完成】 的 按钮
+        bt_ok.setOnClickListener(new OnClickListener() {
 
             public void onClick(View v) {
                 ArrayList<String> list = new ArrayList<>();
@@ -90,10 +81,11 @@ public class ImageGridActivity extends Activity {
     private void initView() {
         gridView = (GridView) findViewById(R.id.gridview);
         gridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
-        adapter = new ImageGridAdapter(ImageGridActivity.this, dataList,mHandler);
+        adapter = new ImageGridAdapter(ImageGridActivity.this, imageItems);
         gridView.setAdapter(adapter);
         adapter.setTextCallback(new ImageGridAdapter.TextCallback() {
-            public void onListen(int count) {bt.setText("完成" + "(" + count + ")");
+            public void onListen(int count) {
+                bt_ok.setText("完成" + "(" + count + ")");
             }
         });
 

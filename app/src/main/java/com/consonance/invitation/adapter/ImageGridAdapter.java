@@ -1,9 +1,5 @@
 package com.consonance.invitation.adapter;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Handler;
@@ -18,147 +14,127 @@ import android.widget.TextView;
 
 import com.consonance.invitation.BitmapCache;
 import com.consonance.invitation.R;
+import com.consonance.invitation.data.Params;
 import com.consonance.invitation.entity.ImageItem;
 import com.consonance.invitation.utils.Bimp;
+import com.consonance.invitation.utils.EventBusHelper;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * 相册图片显示
+ */
 public class ImageGridAdapter extends BaseAdapter {
 
-	private TextCallback textcallback = null;
-	final String TAG = getClass().getSimpleName();
-	Activity act;
-	List<ImageItem> dataList;
-	public Map<String, String> map = new HashMap<String, String>();
-	BitmapCache cache;
-	private Handler mHandler;
-	private int selectTotal = 0;
-	BitmapCache.ImageCallback callback = new BitmapCache.ImageCallback() {
-		@Override
-		public void imageLoad(ImageView imageView, Bitmap bitmap,
-				Object... params) {
-			if (imageView != null && bitmap != null) {
-				String url = (String) params[0];
-				if (url != null && url.equals((String) imageView.getTag())) {
-					((ImageView) imageView).setImageBitmap(bitmap);
-				} else {
-					Log.e(TAG, "callback, bmp not match");
-				}
-			} else {
-				Log.e(TAG, "callback, bmp null");
-			}
-		}
-	};
+    private TextCallback textcallback = null;
+    final String TAG = getClass().getSimpleName();
+    private Activity activity;
+    List<ImageItem> dataList;
+    public Map<String, String> map = new HashMap<>();
+    private int selectTotal = 0;
 
-	public static interface TextCallback {
-		public void onListen(int count);
-	}
+    public interface TextCallback {
+        void onListen(int count);
+    }
 
-	public void setTextCallback(TextCallback listener) {
-		textcallback = listener;
-	}
+    public void setTextCallback(TextCallback listener) {
+        textcallback = listener;
+    }
 
-	public ImageGridAdapter(Activity act, List<ImageItem> list, Handler mHandler) {
-		this.act = act;
-		dataList = list;
-		cache = new BitmapCache();
-		this.mHandler = mHandler;
-	}
+    public ImageGridAdapter(Activity activity, List<ImageItem> list) {
+        this.activity = activity;
+        dataList = list;
+    }
 
-	@Override
-	public int getCount() {
-		int count = 0;
-		if (dataList != null) {
-			count = dataList.size();
-		}
-		return count;
-	}
+    @Override
+    public int getCount() {
+        int count = 0;
+        if (dataList != null) {
+            count = dataList.size();
+        }
+        return count;
+    }
 
-	@Override
-	public Object getItem(int position) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public Object getItem(int position) {
+        return dataList.get(position);
+    }
 
-	@Override
-	public long getItemId(int position) {
-		// TODO Auto-generated method stub
-		return position;
-	}
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
 
-	class Holder {
-		private ImageView iv;
-		private ImageView selected;
-		private TextView text;
-	}
+    private class ViewHolder {
+        private ImageView iv;
+        private ImageView selected;
+        private TextView text;
+    }
 
-	@Override
-	public View getView(final int position, View convertView, ViewGroup parent) {
-		final Holder holder;
+    @Override
+    public View getView(final int position, View convertView, ViewGroup parent) {
+        final ViewHolder holder;
+        if (convertView == null) {
+            holder = new ViewHolder();
+            convertView = View.inflate(activity, R.layout.item_img_grid, null);
+            holder.iv = (ImageView) convertView.findViewById(R.id.image);
+            holder.selected = (ImageView) convertView.findViewById(R.id.isselected);
+            holder.text = (TextView) convertView.findViewById(R.id.item_image_grid_text);
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
+        }
+        final ImageItem imageItem = dataList.get(position);
 
-		if (convertView == null) {
-			holder = new Holder();
-			convertView = View.inflate(act, R.layout.item_img_grid, null);
-			holder.iv = (ImageView) convertView.findViewById(R.id.image);
-			holder.selected = (ImageView) convertView
-					.findViewById(R.id.isselected);
-			holder.text = (TextView) convertView
-					.findViewById(R.id.item_image_grid_text);
-			convertView.setTag(holder);
-		} else {
-			holder = (Holder) convertView.getTag();
-		}
-		final ImageItem item = dataList.get(position);
+        holder.iv.setTag(imageItem.imagePath);
+        ImageLoader.getInstance().displayImage("file://"+imageItem.imagePath,holder.iv);
+        if (imageItem.isSelected) {
+            holder.selected.setImageResource(R.drawable.icon_data_select);
+            holder.text.setBackgroundResource(R.drawable.bg_focus_line);
+        } else {
+            holder.selected.setImageResource(R.drawable.icon_account);
+            holder.text.setBackgroundColor(0x00000000);
+        }
+        holder.iv.setOnClickListener(new OnClickListener() {
 
-		holder.iv.setTag(item.imagePath);
-		cache.displayBmp(holder.iv, item.thumbnailPath, item.imagePath,
-				callback);
-		if (item.isSelected) {
-			holder.selected.setImageResource(R.drawable.icon_data_select);  
-			holder.text.setBackgroundResource(R.drawable.bg_focus_line);
-		} else {
-			holder.selected.setImageResource(R.drawable.icon_account);
-			holder.text.setBackgroundColor(0x00000000);
-		}
-		holder.iv.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String path = imageItem.imagePath;//dataList.get(position).imagePath;
+                if ((Params.UPLOAD_IMG_LIST.size()+selectTotal)<9) {
+                    imageItem.isSelected = !imageItem.isSelected;
+                    if (imageItem.isSelected) {
+                        holder.selected.setImageResource(R.drawable.icon_data_select);
+                        holder.text.setBackgroundResource(R.drawable.bg_focus_line);
+                        selectTotal++;
+                        if (textcallback != null)
+                            textcallback.onListen(selectTotal);
+                        map.put(path, path);
 
-			@Override
-			public void onClick(View v) {
-				String path = dataList.get(position).imagePath;
+                    } else if (!imageItem.isSelected) {
+                        holder.selected.setImageResource(-1);
+                        holder.text.setBackgroundColor(0x00000000);
+                        selectTotal--;
+                        if (textcallback != null)
+                            textcallback.onListen(selectTotal);
+                        map.remove(path);
+                    }
+                } else if ((Params.UPLOAD_IMG_LIST.size()+selectTotal)>= 9) {
+                    if (imageItem.isSelected) {
+                        imageItem.isSelected = !imageItem.isSelected;
+                        holder.selected.setImageResource(-1);
+                        selectTotal--;
+                        map.remove(path);
+                    } else {
+                        EventBusHelper.sendUIEvent(Params.UIEventType.MSG_SHOW_MESSAGE,"最多选择9张图片");
+                    }
+                }
+            }
 
-				if ((Bimp.drr.size() + selectTotal) < 9) {
-					item.isSelected = !item.isSelected;
-					if (item.isSelected) {
-						holder.selected
-								.setImageResource(R.drawable.icon_data_select);
-						holder.text.setBackgroundResource(R.drawable.bg_focus_line);
-						selectTotal++;
-						if (textcallback != null)
-							textcallback.onListen(selectTotal);
-						map.put(path, path);
+        });
 
-					} else if (!item.isSelected) {
-						holder.selected.setImageResource(-1);
-						holder.text.setBackgroundColor(0x00000000);
-						selectTotal--;
-						if (textcallback != null)
-							textcallback.onListen(selectTotal);
-						map.remove(path);
-					}
-				} else if ((Bimp.drr.size() + selectTotal) >= 9) {
-					if (item.isSelected == true) {
-						item.isSelected = !item.isSelected;
-						holder.selected.setImageResource(-1);
-						selectTotal--;
-						map.remove(path);
-
-					} else {
-						Message message = Message.obtain(mHandler, 0);
-						message.sendToTarget();
-					}
-				}
-			}
-
-		});
-
-		return convertView;
-	}
+        return convertView;
+    }
 }

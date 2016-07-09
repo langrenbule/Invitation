@@ -132,8 +132,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 ProgressDialogUtils.showDialog(MainActivity.this,message);
                 break;
             case MSG_SORT_MESSAGE:
-                double tips = (double) event.getMessage();
-                Toast.makeText(MainActivity.this,tips+"",Toast.LENGTH_LONG).show();
+                String tips = (String) event.getMessage();
+                Toast.makeText(MainActivity.this,tips,Toast.LENGTH_LONG).show();
                 break;
             case MSG_DISMISS_DIALOG:
                 ProgressDialogUtils.dissmissDialog();

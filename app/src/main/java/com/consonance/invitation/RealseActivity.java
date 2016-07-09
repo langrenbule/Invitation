@@ -53,9 +53,12 @@ public class RealseActivity extends AppCompatActivity {
                 RealseActivity.this.finish();
             }
         });
-
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 
     private static final int TAKE_PICTURE = 0x000000;
 

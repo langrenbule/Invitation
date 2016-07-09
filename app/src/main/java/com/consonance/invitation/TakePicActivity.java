@@ -3,7 +3,6 @@ package com.consonance.invitation;
 import java.io.Serializable;
 import java.util.List;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,18 +15,18 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
 import com.consonance.invitation.adapter.ImageBucketAdapter;
+import com.consonance.invitation.data.Params;
 import com.consonance.invitation.entity.ImageBucket;
 import com.consonance.invitation.utils.AlbumHelper;
 
 /**
- * 选取照片
+ * 相册缩略图显示
  */
 public class TakePicActivity extends AppCompatActivity {
-    List<ImageBucket> dataList;
+    List<ImageBucket> imageBuckets;
     GridView gridView;
     ImageBucketAdapter adapter;// 自定义的适配器
     AlbumHelper helper;
-    public static final String EXTRA_IMAGE_LIST = "imagelist";
     public static Bitmap bimap;
 
     @Override
@@ -60,7 +59,7 @@ public class TakePicActivity extends AppCompatActivity {
      * 初始化数据
      */
     private void initData() {
-        dataList = helper.getImagesBucketList(false);
+        imageBuckets = helper.getImagesBucketList(false);
         bimap = BitmapFactory.decodeResource(getResources(),R.drawable.icon_addpic_unfocused);
     }
 
@@ -69,20 +68,19 @@ public class TakePicActivity extends AppCompatActivity {
      */
     private void initView() {
         gridView = (GridView) findViewById(R.id.gridview);
-        adapter = new ImageBucketAdapter(TakePicActivity.this, dataList);
+        adapter = new ImageBucketAdapter(TakePicActivity.this, imageBuckets);
         gridView.setAdapter(adapter);
 
         gridView.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
                 /**
                  * 根据position参数，可以获得跟GridView的子View相绑定的实体类，然后根据它的isSelected状态，
                  * 来判断是否显示选中效果。 至于选中效果的规则，下面适配器的代码中会有说明
                  */
                 Intent intent = new Intent(TakePicActivity.this,ImageGridActivity.class);
-                intent.putExtra(TakePicActivity.EXTRA_IMAGE_LIST,(Serializable) dataList.get(position).imageList);
+                intent.putExtra(Params.EXTRA_IMAGE_LIST,(Serializable) imageBuckets.get(position).imageList);
                 startActivity(intent);
                 finish();
             }
