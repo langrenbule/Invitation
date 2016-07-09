@@ -26,7 +26,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
 import butterknife.BindView;
-import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -56,22 +55,13 @@ public class ImageGridActivity extends Activity {
 
             public void onClick(View v) {
                 ArrayList<String> list = new ArrayList<>();
-                Collection<String> c = adapter.map.values();
-                Iterator<String> it = c.iterator();
+                Collection<String> collection = adapter.map.values();
+                Iterator<String> it = collection.iterator();
                 for (; it.hasNext(); ) {
                     list.add(it.next());
                 }
-
-                if (Bimp.act_bool) {
-                    Intent intent = new Intent(ImageGridActivity.this,RealseActivity.class);
-                    startActivity(intent);
-                    Bimp.act_bool = false;
-                }
-                for (int i = 0; i < list.size(); i++) {
-                    if (Bimp.drr.size() < 9) {
-                        Bimp.drr.add(list.get(i));
-                    }
-                }
+                Intent intent = new Intent(ImageGridActivity.this,RealseActivity.class);
+                startActivity(intent);
                 finish();
             }
 

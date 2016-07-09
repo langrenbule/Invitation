@@ -1,6 +1,8 @@
 package com.consonance.invitation;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -31,6 +33,7 @@ public class RealseActivity extends AppCompatActivity {
         initActionBar();
 
         noScrollgridview = (GridView) this.findViewById(R.id.noScrollgridview);
+        noScrollgridview.setSelector(new ColorDrawable(Color.TRANSPARENT));
         imgGridAdapter = new ImgGridAdapter(RealseActivity.this);
         noScrollgridview.setAdapter(imgGridAdapter);
         noScrollgridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {

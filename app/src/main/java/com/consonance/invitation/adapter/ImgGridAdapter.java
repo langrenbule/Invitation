@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 发表图片说说
+ * 发表图片说说,图片必须至少有1个以上
  * Created by Deity on 2016/6/29.
  */
 public class ImgGridAdapter extends BaseAdapter {
