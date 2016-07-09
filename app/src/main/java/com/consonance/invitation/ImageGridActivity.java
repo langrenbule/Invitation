@@ -60,7 +60,7 @@ public class ImageGridActivity extends Activity {
         dataList = (List<ImageItem>) getIntent().getSerializableExtra(EXTRA_IMAGE_LIST);
 
         initView();
-        bt = (Button) findViewById(R.id.bt);
+        bt = (Button) findViewById(R.id.bt);//【是否完成】 的 按钮
         bt.setOnClickListener(new OnClickListener() {
 
             public void onClick(View v) {
@@ -90,12 +90,10 @@ public class ImageGridActivity extends Activity {
     private void initView() {
         gridView = (GridView) findViewById(R.id.gridview);
         gridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
-        adapter = new ImageGridAdapter(ImageGridActivity.this, dataList,
-                mHandler);
+        adapter = new ImageGridAdapter(ImageGridActivity.this, dataList,mHandler);
         gridView.setAdapter(adapter);
         adapter.setTextCallback(new ImageGridAdapter.TextCallback() {
-            public void onListen(int count) {
-                bt.setText("完成" + "(" + count + ")");
+            public void onListen(int count) {bt.setText("完成" + "(" + count + ")");
             }
         });
 

@@ -115,7 +115,7 @@ public class ImageGridAdapter extends BaseAdapter {
 			holder.selected.setImageResource(R.drawable.icon_data_select);  
 			holder.text.setBackgroundResource(R.drawable.bg_focus_line);
 		} else {
-			holder.selected.setImageResource(-1);
+			holder.selected.setImageResource(R.drawable.icon_account);
 			holder.text.setBackgroundColor(0x00000000);
 		}
 		holder.iv.setOnClickListener(new OnClickListener() {

@@ -24,21 +24,23 @@ import com.consonance.invitation.entity.ImageItem;
  * 
  */
 public class AlbumHelper {
-	final String TAG = getClass().getSimpleName();
-	Context context;
-	ContentResolver cr;
+	private Context context;
+	private ContentResolver mContentResolver;
+	/**
+	 * 是否创建了图片集
+	 */
+	boolean hasBuildImagesBucketList = false;
 
 	// 缩略图列表
-	HashMap<String, String> thumbnailList = new HashMap<String, String>();
-	// 专辑列表
-	List<HashMap<String, String>> albumList = new ArrayList<HashMap<String, String>>();
-	HashMap<String, ImageBucket> bucketList = new HashMap<String, ImageBucket>();
+	HashMap<String, String> thumbnailList = new HashMap<>();
+	HashMap<String, ImageBucket> bucketList = new HashMap<>();
 
 	private static AlbumHelper instance;
 
 	private AlbumHelper() {
 	}
 
+	/**单例模式*/
 	public static AlbumHelper getHelper() {
 		if (instance == null) {
 			instance = new AlbumHelper();
@@ -49,12 +51,12 @@ public class AlbumHelper {
 	/**
 	 * 初始化
 	 * 
-	 * @param context
+	 * @param context 上下文
 	 */
 	public void init(Context context) {
 		if (this.context == null) {
 			this.context = context;
-			cr = context.getContentResolver();
+			mContentResolver = context.getContentResolver();
 		}
 	}
 
@@ -62,107 +64,30 @@ public class AlbumHelper {
 	 * 得到缩略图
 	 */
 	private void getThumbnail() {
-		String[] projection = { Thumbnails._ID, Thumbnails.IMAGE_ID,Thumbnails.DATA };
-		Cursor cursor = cr.query(Thumbnails.EXTERNAL_CONTENT_URI, projection,null, null, null);
+		String[] projection = { Thumbnails._ID, Thumbnails.IMAGE_ID,Thumbnails.DATA };/**关心ID/IMAGE_ID/DATA数据*/
+		Cursor cursor = mContentResolver.query(Thumbnails.EXTERNAL_CONTENT_URI, projection,null, null, null);
 		getThumbnailColumnData(cursor);
 	}
 
 	/**
 	 * 从数据库中得到缩略图
 	 * 
-	 * @param cur
+	 * @param cursor
 	 */
-	private void getThumbnailColumnData(Cursor cur) {
-		if (cur.moveToFirst()) {
-			int _id;
+	private void getThumbnailColumnData(Cursor cursor) {
+		if (cursor.moveToFirst()) {
 			int image_id;
 			String image_path;
-			int _idColumn = cur.getColumnIndex(Thumbnails._ID);
-			int image_idColumn = cur.getColumnIndex(Thumbnails.IMAGE_ID);
-			int dataColumn = cur.getColumnIndex(Thumbnails.DATA);
+			int image_idColumn = cursor.getColumnIndex(Thumbnails.IMAGE_ID);
+			int dataColumn = cursor.getColumnIndex(Thumbnails.DATA);
 
 			do {
-				// Get the field values
-				_id = cur.getInt(_idColumn);
-				image_id = cur.getInt(image_idColumn);
-				image_path = cur.getString(dataColumn);
-
-				// Do something with the values.
-				// Log.i(TAG, _id + " image_id:" + image_id + " path:"
-				// + image_path + "---");
-				// HashMap<String, String> hash = new HashMap<String, String>();
-				// hash.put("image_id", image_id + "");
-				// hash.put("path", image_path);
-				// thumbnailList.add(hash);
-				thumbnailList.put("" + image_id, image_path);
-			} while (cur.moveToNext());
+				image_id = cursor.getInt(image_idColumn);
+				image_path = cursor.getString(dataColumn);
+				thumbnailList.put(String.valueOf(image_id), image_path);
+			} while (cursor.moveToNext());
 		}
 	}
-
-	/**
-	 * 得到原图
-	 */
-	void getAlbum() {
-		String[] projection = { Albums._ID, Albums.ALBUM, Albums.ALBUM_ART,
-				Albums.ALBUM_KEY, Albums.ARTIST, Albums.NUMBER_OF_SONGS };
-		Cursor cursor = cr.query(Albums.EXTERNAL_CONTENT_URI, projection, null,
-				null, null);
-		getAlbumColumnData(cursor);
-
-	}
-
-	/**
-	 * 从本地数据库中得到原图
-	 * 
-	 * @param cur
-	 */
-	private void getAlbumColumnData(Cursor cur) {
-		if (cur.moveToFirst()) {
-			int _id;
-			String album;
-			String albumArt;
-			String albumKey;
-			String artist;
-			int numOfSongs;
-
-			int _idColumn = cur.getColumnIndex(Albums._ID);
-			int albumColumn = cur.getColumnIndex(Albums.ALBUM);
-			int albumArtColumn = cur.getColumnIndex(Albums.ALBUM_ART);
-			int albumKeyColumn = cur.getColumnIndex(Albums.ALBUM_KEY);
-			int artistColumn = cur.getColumnIndex(Albums.ARTIST);
-			int numOfSongsColumn = cur.getColumnIndex(Albums.NUMBER_OF_SONGS);
-
-			do {
-				// Get the field values
-				_id = cur.getInt(_idColumn);
-				album = cur.getString(albumColumn);
-				albumArt = cur.getString(albumArtColumn);
-				albumKey = cur.getString(albumKeyColumn);
-				artist = cur.getString(artistColumn);
-				numOfSongs = cur.getInt(numOfSongsColumn);
-
-				// Do something with the values.
-				Log.i(TAG, _id + " album:" + album + " albumArt:" + albumArt
-						+ "albumKey: " + albumKey + " artist: " + artist
-						+ " numOfSongs: " + numOfSongs + "---");
-				HashMap<String, String> hash = new HashMap<String, String>();
-				hash.put("_id", _id + "");
-				hash.put("album", album);
-				hash.put("albumArt", albumArt);
-				hash.put("albumKey", albumKey);
-				hash.put("artist", artist);
-				hash.put("numOfSongs", numOfSongs + "");
-				albumList.add(hash);
-
-			} while (cur.moveToNext());
-
-		}
-	}
-
-	/**
-	 * 是否创建了图片集
-	 */
-	boolean hasBuildImagesBucketList = false;
 
 	/**
 	 * 得到图片集
@@ -171,7 +96,7 @@ public class AlbumHelper {
 		long startTime = System.currentTimeMillis();
 		getThumbnail();// 构造缩略图索引
 		String columns[] = new String[] { Media._ID, Media.BUCKET_ID,Media.PICASA_ID, Media.DATA, Media.DISPLAY_NAME, Media.TITLE,Media.SIZE, Media.BUCKET_DISPLAY_NAME };// 构造相册索引
-		Cursor cur = cr.query(Media.EXTERNAL_CONTENT_URI, columns, null, null,null);// 得到一个游标
+		Cursor cur = mContentResolver.query(Media.EXTERNAL_CONTENT_URI, columns, null, null,null);// 得到一个游标
 		if (cur.moveToFirst()) {
 			// 获取指定列的索引
 			int photoIDIndex = cur.getColumnIndexOrThrow(Media._ID);
@@ -195,16 +120,11 @@ public class AlbumHelper {
 				String bucketId = cur.getString(bucketIdIndex);
 				String picasaId = cur.getString(picasaIdIndex);
 
-				Log.i(TAG, _id + ", bucketId: " + bucketId + ", picasaId: "
-						+ picasaId + " name:" + name + " path:" + path
-						+ " title: " + title + " size: " + size + " bucket: "
-						+ bucketName + "---");
-
 				ImageBucket bucket = bucketList.get(bucketId);
 				if (bucket == null) {
 					bucket = new ImageBucket();
 					bucketList.put(bucketId, bucket);
-					bucket.imageList = new ArrayList<ImageItem>();
+					bucket.imageList = new ArrayList<>();
 					bucket.bucketName = bucketName;
 				}
 				bucket.count++;
@@ -216,23 +136,9 @@ public class AlbumHelper {
 
 			} while (cur.moveToNext());
 		}
-
-		Iterator<Map.Entry<String, ImageBucket>> itr = bucketList.entrySet()
-				.iterator();
-		while (itr.hasNext()) {
-			Map.Entry<String, ImageBucket> entry = (Map.Entry<String, ImageBucket>) itr.next();
-			ImageBucket bucket = entry.getValue();
-			Log.d(TAG, entry.getKey() + ", " + bucket.bucketName + ", "
-					+ bucket.count + " ---------- ");
-			for (int i = 0; i < bucket.imageList.size(); ++i) {
-				ImageItem image = bucket.imageList.get(i);
-				Log.d(TAG, "----- " + image.imageId + ", " + image.imagePath
-						+ ", " + image.thumbnailPath);
-			}
-		}
-		hasBuildImagesBucketList = true;
+		hasBuildImagesBucketList = true;//已初始化
 		long endTime = System.currentTimeMillis();
-		Log.d(TAG, "use time: " + (endTime - startTime) + " ms");
+		Log.d(AlbumHelper.class.getSimpleName(), "耗时:" + (endTime - startTime) + "ms");
 	}
 
 	/**
@@ -252,25 +158,4 @@ public class AlbumHelper {
 		}
 		return tmpList;
 	}
-
-	/**
-	 * 得到原始图像路径
-	 * 
-	 * @param image_id
-	 * @return
-	 */
-	String getOriginalImagePath(String image_id) {
-		String path = null;
-		Log.i(TAG, "---(^o^)----" + image_id);
-		String[] projection = { Media._ID, Media.DATA };
-		Cursor cursor = cr.query(Media.EXTERNAL_CONTENT_URI, projection,
-				Media._ID + "=" + image_id, null, null);
-		if (cursor != null) {
-			cursor.moveToFirst();
-			path = cursor.getString(cursor.getColumnIndex(Media.DATA));
-
-		}
-		return path;
-	}
-
 }
