@@ -1,6 +1,7 @@
 package com.consonance.invitation;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -32,8 +33,13 @@ import com.consonance.invitation.event.UIEvent;
 import com.consonance.invitation.fragment.OrderFragment;
 import com.consonance.invitation.fragment.ReleaseFragment;
 import com.consonance.invitation.fragment.SquareFragment;
+import com.consonance.invitation.jpushapi.JPushService;
+import com.consonance.invitation.test.FileSizeUtil;
 import com.consonance.invitation.utils.EventBusHelper;
 import com.consonance.invitation.utils.FileHelper;
+import com.consonance.invitation.utils.HandleResponseCode;
+import com.consonance.invitation.utils.MediaUtils;
+import com.consonance.invitation.utils.ProgressDialogUtils;
 import com.consonance.invitation.utils.SharePreferenceManager;
 import com.deity.customview.widget.NavigationBar;
 
@@ -47,6 +53,7 @@ import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.model.UserInfo;
 import cn.jpush.im.android.eventbus.EventBus;
 
+@SuppressWarnings("unused")
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, ViewPager.OnPageChangeListener{//implements SwipeRefreshLayout.OnRefreshListener,View.OnClickListener, ViewPager.OnPageChangeListener
 //    @BindView(R.id.order_list)
     private static final int REFRESH_COMPLETE = 0X110;
@@ -118,6 +125,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onResume();
     }
 
+    public void onEventMainThread(UIEvent event){
+        switch (event.getCmdType()){
+            case MSG_SHOW_DIALOG:
+                String message = (String) event.getMessage();
+                ProgressDialogUtils.showDialog(MainActivity.this,message);
+                break;
+            case MSG_SORT_MESSAGE:
+                double tips = (double) event.getMessage();
+                Toast.makeText(MainActivity.this,tips+"",Toast.LENGTH_LONG).show();
+                break;
+            case MSG_DISMISS_DIALOG:
+                ProgressDialogUtils.dissmissDialog();
+                break;
+            case MSG_LOAD_AVATAR://加载头像
+                String avatarPath = (String) event.getMessage();
+                meFragment.loadUserAvatar(avatarPath);
+                break;
+            case MSG_LOAD_AVATAR_FAIL:
+                int status = (int) event.getMessage();
+                HandleResponseCode.onHandle(MainActivity.this, status, false);
+                break;
+        }
+    }
+
     public void onEventBackgroundThread(UIEvent event){
         switch (event.getCmdType()){
             case MSG_SORT_MESSAGE:
@@ -149,38 +180,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else if (requestCode == InApplication.REQUEST_CODE_SELECT_PICTURE) {
             if (data != null) {
                 Uri selectedImg = data.getData();
-                if (selectedImg != null) {
-                    String[] filePathColumn = { MediaStore.Images.Media.DATA };
-                    Cursor cursor = this.getContentResolver().query(selectedImg, filePathColumn, null, null, null);
-                    if (null == cursor) {
-                        String path = selectedImg.getPath();
-                        File file = new File(path);
-                        if (file.isFile()) {
-                            copyAndCrop(file);
-                            return;
-                        } else {
-                            Toast.makeText(this, this.getString(R.string.picture_not_found),
-                                    Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                    } else if (!cursor.moveToFirst()) {
-                        Toast.makeText(this, this.getString(R.string.picture_not_found),
-                                Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                    String path = cursor.getString(columnIndex);
-                    if (path != null) {
-                        File file = new File(path);
-                        if (!file.isFile()) {
-                            Toast.makeText(this, this.getString(R.string.picture_not_found),
-                                    Toast.LENGTH_SHORT).show();
-                            cursor.close();
-                        } else {
-                            //如果是选择本地图片进行头像设置，复制到临时文件，并进行裁剪
-                            copyAndCrop(file);
-                            cursor.close();
-                        }
+                String path = MediaUtils.getImageFile(MainActivity.this,selectedImg);
+                if (path != null) {
+                    File file = new File(path);
+                    if (!file.isFile()) {
+                        Toast.makeText(this, this.getString(R.string.picture_not_found),Toast.LENGTH_SHORT).show();
+                    } else {
+                        //如果是选择本地图片进行头像设置，复制到临时文件，并进行裁剪
+                        copyAndCrop(file);
                     }
                 }
             }
@@ -188,7 +195,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //            mMainController.uploadUserAvatar(mUri.getPath());
             String path = data.getStringExtra("filePath");
             if (path != null) {
-                MainController.getInstance().uploadUserAvatar(path);
+//                MainController.getInstance().uploadUserAvatar(path);
+                EventBusHelper.sendUIEvent(Params.UIEventType.MSG_SHOW_DIALOG,getResources().getString(R.string.updating_avatar_hint));
+                JPushService.uploadUserAvatar(path);
+                System.out.println("文件大小:");
+                EventBusHelper.sendUIEvent(Params.UIEventType.MSG_SORT_MESSAGE, FileSizeUtil.getFileOrFilesSize(path,FileSizeUtil.SIZETYPE_KB));
             }
         } else if (resultCode == InApplication.RESULT_CODE_ME_INFO) {
             String newName = data.getStringExtra("newName");

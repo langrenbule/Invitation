@@ -152,7 +152,6 @@ public class MainController implements OnClickListener, OnPageChangeListener {
 
     @Override
     public void onPageSelected(int index) {
-        // TODO Auto-generated method stub
         mMainView.setButtonColor(index);
     }
 

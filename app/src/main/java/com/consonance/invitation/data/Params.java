@@ -7,6 +7,11 @@ import java.util.List;
  */
 public class Params {
     public enum UIEventType{
-        MSG_SORT_MESSAGE;
+        MSG_SHOW_DIALOG,//显示进度条
+        MSG_SHOW_MESSAGE,//显示信息
+        MSG_DISMISS_DIALOG,//隐藏进度条
+        MSG_LOAD_AVATAR,//加载用户头像
+        MSG_LOAD_AVATAR_FAIL,//加载用户头像失败
+        MSG_SORT_MESSAGE;//聊天信息排序
     }
 }
