@@ -54,12 +54,12 @@ public class ImageGridActivity extends Activity {
         bt_ok.setOnClickListener(new OnClickListener() {
 
             public void onClick(View v) {
-                ArrayList<String> list = new ArrayList<>();
-                Collection<String> collection = adapter.map.values();
-                Iterator<String> it = collection.iterator();
-                for (; it.hasNext(); ) {
-                    list.add(it.next());
-                }
+//                ArrayList<String> list = new ArrayList<>();
+//                Collection<String> collection = adapter.map.values();
+//                Iterator<String> it = collection.iterator();
+//                for (; it.hasNext(); ) {
+//                    list.add(it.next());
+//                }
                 Intent intent = new Intent(ImageGridActivity.this,RealseActivity.class);
                 startActivity(intent);
                 finish();

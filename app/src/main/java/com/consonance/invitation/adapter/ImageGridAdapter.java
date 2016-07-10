@@ -32,8 +32,7 @@ public class ImageGridAdapter extends BaseAdapter {
     private TextCallback textcallback = null;
     private Activity activity;
     List<ImageItem> dataList;
-    public Map<String, String> map = new HashMap<>();
-    private int selectTotal = 0;
+//    public Map<String, String> map = new HashMap<>();
 
     public interface TextCallback {
         void onListen(int count);
@@ -102,35 +101,29 @@ public class ImageGridAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 String path = imageItem.imagePath;//dataList.get(position).imagePath;
-                if ((Params.UPLOAD_IMG_LIST.size()+selectTotal)<9) {
+                if ((Params.UPLOAD_IMG_LIST.size())<Params.MAX_UPLOAD_IMG_NUMBER) {
                     imageItem.isSelected = !imageItem.isSelected;
                     if (imageItem.isSelected) {
                         holder.selected.setImageResource(R.drawable.icon_data_select);
                         holder.text.setBackgroundResource(R.drawable.bg_focus_line);
-                        selectTotal++;
                         if (textcallback != null)
-                            textcallback.onListen(selectTotal);
-                        map.put(path, path);
+                            textcallback.onListen(Params.UPLOAD_IMG_LIST.size());
                         Params.UPLOAD_IMG_LIST.add(path);
 
                     } else if (!imageItem.isSelected) {
                         holder.selected.setImageResource(-1);
                         holder.text.setBackgroundColor(0x00000000);
-                        selectTotal--;
                         if (textcallback != null)
-                            textcallback.onListen(selectTotal);
-                        map.remove(path);
+                            textcallback.onListen(Params.UPLOAD_IMG_LIST.size());
                         Params.UPLOAD_IMG_LIST.remove(path);
                     }
-                } else if ((Params.UPLOAD_IMG_LIST.size()+selectTotal)>= 9) {
+                } else if ((Params.UPLOAD_IMG_LIST.size())>= Params.MAX_UPLOAD_IMG_NUMBER) {
                     if (imageItem.isSelected) {
                         imageItem.isSelected = !imageItem.isSelected;
                         holder.selected.setImageResource(-1);
-                        selectTotal--;
-                        map.remove(path);
                         Params.UPLOAD_IMG_LIST.remove(path);
                     } else {
-                        EventBusHelper.sendUIEvent(Params.UIEventType.MSG_SHOW_MESSAGE,"最多选择9张图片");
+                        EventBusHelper.sendUIEvent(Params.UIEventType.MSG_SHOW_MESSAGE,"最多选择"+Params.MAX_UPLOAD_IMG_NUMBER+"张图片");
                     }
                 }
             }

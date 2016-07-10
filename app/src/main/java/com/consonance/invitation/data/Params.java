@@ -8,6 +8,7 @@ import java.util.List;
  */
 public class Params {
     public static final String EXTRA_IMAGE_LIST = "IMAGE_BUCKETS";
+    public static final int MAX_UPLOAD_IMG_NUMBER=8;
     /**等待上传的图片*/
     public static List<String> UPLOAD_IMG_LIST=new ArrayList<>();
     public enum UIEventType{
