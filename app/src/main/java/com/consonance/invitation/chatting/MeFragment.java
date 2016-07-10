@@ -15,6 +15,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.consonance.invitation.R;
@@ -26,6 +28,7 @@ import com.consonance.invitation.utils.FileHelper;
 import com.consonance.invitation.utils.HandleResponseCode;
 import com.consonance.invitation.utils.SharePreferenceManager;
 import com.consonance.invitation.widget.MeView;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.io.File;
 import cn.jpush.im.android.api.JMessageClient;
@@ -41,37 +44,34 @@ public class MeFragment extends BaseFragment {
     private MeController mMeController;
     private Context mContext;
     private String mPath;
-    private boolean mIsShowAvatar = false;
+//    private boolean mIsShowAvatar = false;//发现切回来后，照片又不显示了
     private boolean mIsGetAvatar = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         mContext = this.getActivity();
-        LayoutInflater layoutInflater = getActivity().getLayoutInflater();
-        mRootView = layoutInflater.inflate(R.layout.fragment_me,
-                (ViewGroup) getActivity().findViewById(R.id.main_view), false);
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+//        ViewGroup parent = (ViewGroup) mRootView.getParent();
+//        if (parent != null) {
+//            parent.removeAllViewsInLayout();
+//        }
+//        container.removeAllViews();
+        mRootView = inflater.inflate(R.layout.fragment_me,(ViewGroup) getActivity().findViewById(R.id.root_main), false);
         mMeView = (MeView) mRootView.findViewById(R.id.me_view);
         mMeView.initModule(mDensity, mWidth);
         mMeController = new MeController(mMeView, this, mWidth);
         mMeView.setListeners(mMeController);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
-        ViewGroup p = (ViewGroup) mRootView.getParent();
-        if (p != null) {
-            p.removeAllViewsInLayout();
-        }
         return mRootView;
     }
 
     @Override
     public void onResume() {
-        if (!mIsShowAvatar) {
+//        if (!mIsShowAvatar) {
             UserInfo myInfo = JMessageClient.getMyInfo();
             if (myInfo != null) {
                 if (!TextUtils.isEmpty(myInfo.getAvatar())) {
@@ -80,21 +80,21 @@ public class MeFragment extends BaseFragment {
                         public void gotResult(int status, String desc, Bitmap bitmap) {
                             if (status == 0) {
                                 mMeView.showPhoto(bitmap);
-                                mIsShowAvatar = true;
+//                                mIsShowAvatar = true;
                             } else {
                                 HandleResponseCode.onHandle(mContext, status, false);
                             }
                         }
                     });
                 }
-                mMeView.showNickName(myInfo.getNickname());
+//                mMeView.showNickName(myInfo.getNickname());
             //用户由于某种原因导致登出,跳转到重新登录界面
             } else {
                 Intent intent = new Intent();
                 intent.setClass(mContext, ReloginActivity.class);
                 startActivity(intent);
             }
-        }
+//        }
         super.onResume();
     }
 
@@ -214,8 +214,7 @@ public class MeFragment extends BaseFragment {
     }
 
     private void getBigAvatar(final UserInfo myInfo) {
-        final Dialog dialog = DialogCreator.createLoadingDialog(mContext,
-                mContext.getString(R.string.jmui_loading));
+        final Dialog dialog = DialogCreator.createLoadingDialog(mContext,mContext.getString(R.string.jmui_loading));
         dialog.show();
         myInfo.getBigAvatarBitmap(new GetAvatarBitmapCallback() {
             @Override

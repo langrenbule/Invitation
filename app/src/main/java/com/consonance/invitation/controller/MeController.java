@@ -12,6 +12,9 @@ import com.consonance.invitation.tools.NativeImageLoader;
 import com.consonance.invitation.utils.DialogCreator;
 import com.consonance.invitation.widget.MeView;
 
+/***
+ * 个人信息展示控制器
+ */
 public class MeController implements OnClickListener {
 
     private MeView mMeView;
