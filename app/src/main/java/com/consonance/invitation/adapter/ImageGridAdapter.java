@@ -32,7 +32,6 @@ public class ImageGridAdapter extends BaseAdapter {
     private TextCallback textcallback = null;
     private Activity activity;
     List<ImageItem> dataList;
-//    public Map<String, String> map = new HashMap<>();
 
     public interface TextCallback {
         void onListen(int count);

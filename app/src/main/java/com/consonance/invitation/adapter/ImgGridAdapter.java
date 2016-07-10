@@ -20,20 +20,10 @@ import java.util.List;
  */
 public class ImgGridAdapter extends BaseAdapter {
     private LayoutInflater inflater;
-//    private List<String> imgList = new ArrayList<>();
 
     public ImgGridAdapter(Context context){
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//        imgList.add("");
     }
-
-//    public void setData(List<String> imgList){
-//        this.imgList.addAll(imgList);
-//    }
-
-//    public void addData(String imageUrl){
-//        this.imgList.add(imageUrl);
-//    }
 
     @Override
     public int getCount() {
@@ -66,7 +56,7 @@ public class ImgGridAdapter extends BaseAdapter {
         viewHolder.imageView.setImageResource(R.drawable.bt_add_pic);// 先设置默认图片
         if (position==Params.UPLOAD_IMG_LIST.size()){
             viewHolder.imageView.setImageResource(R.drawable.icon_addpic_unfocused);
-            if (position == 9) {
+            if (position == Params.MAX_UPLOAD_IMG_NUMBER) {
                 viewHolder.imageView.setVisibility(View.GONE);
             }
         }else {
