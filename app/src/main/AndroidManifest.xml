@@ -206,7 +206,8 @@
         <activity android:name="com.consonance.invitation.chatting.MembersInChatActivity" />
         <activity android:name="com.consonance.invitation.chatting.CropImageActivity" />
         <!--Add by me-->
-        <activity android:name="com.consonance.invitation.RealseActivity" />
+        <activity android:name="com.consonance.invitation.RealseActivity"
+            android:launchMode="singleTask"/>
         <activity android:name="com.consonance.invitation.BitmapCache" />
         <activity android:name="com.consonance.invitation.ImageGridActivity" />
         <activity android:name="com.consonance.invitation.TakePicActivity" />
