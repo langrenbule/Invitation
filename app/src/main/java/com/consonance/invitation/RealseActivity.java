@@ -40,7 +40,14 @@ public class RealseActivity extends AppCompatActivity {
         noScrollgridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                new AddPublicPicPop(RealseActivity.this, noScrollgridview);
+                if (position==Params.UPLOAD_IMG_LIST.size()){
+                    new AddPublicPicPop(RealseActivity.this, noScrollgridview);
+                }else {
+                    Intent intent = new Intent(RealseActivity.this,PhotoActivity.class);
+                    intent.putExtra("ID", position);
+                    startActivity(intent);
+                }
+
             }
         });
     }
@@ -50,7 +57,7 @@ public class RealseActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_main_toolbar);
         toolbar.setTitle("信息发布");
         setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.drawable.title_bar_back);
+        toolbar.setNavigationIcon(R.drawable.jmui_back_btn);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -45,7 +45,7 @@ public class TakePicActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_bucket_toolbar);
         toolbar.setTitle("信息发布");
         setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.drawable.title_bar_back);
+        toolbar.setNavigationIcon(R.drawable.jmui_back_btn);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
